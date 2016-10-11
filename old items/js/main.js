@@ -1,7 +1,13 @@
 //Models
 var board = []
 
-//loop to create board array of 30 arrays of 30 empty strings
+$(document).on('keydown', function(e) {
+    if(e.keyCode === 32) {
+        hideStartScreen()
+    }
+})
+
+//loop to create board array of 40 arrays of 40 empty strings
 for(var i = 0; i < 40; i++) {
         var row = []
     for(var x = 0; x < 40; x++) {
@@ -24,27 +30,37 @@ function draw() {
     var $board = $('.board')
     //40 rows
     for(var i = 0; i < board.length; i++) {
-        $board.append('<div class="row"></div>')
+        $board.append('<div class="row"></div>') 
     }
     //40 squares each row
     for(var x = 0; x < 40; x++) {
         var $row = $('.row')
-        $row.append('<div class = "unit"></div>')
+        console.log(board)
+        $row.append('<div class = "unit">'+ board[i][x]+ '</div>')
+        
     } 
-
+    
+    
 }
 
 draw()
 
 function hideStartScreen () {
     $startScreen = $('#start-screen')
-    
     $startScreen.css('display', 'none')
     $('.board').css('top', '80px')
 
 }
 
+function foodSpawn() {
+    var foodX = Math.floor((Math.random() * 40)+1)
+    var foodY = Math.floor((Math.random() * 40)+1)
+    
+    board[foodY][foodX] = 'X'
+    console.log(foodY, foodX)    
+}
 
+//randomize board[x][y]
 
 
 

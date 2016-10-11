@@ -10,7 +10,7 @@ h1 {
 }
 
 .board {
-    width: 500px;
+    width: 480px;
     height: 480px;
     font-size: .5em;
     position: relative;
@@ -41,7 +41,7 @@ h1 {
     top: 110px;
 }
 
-#snake {
+#snake-img {
     margin: 10px;
 }
 
