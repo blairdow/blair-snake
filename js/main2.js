@@ -17,6 +17,11 @@ var foodX = 0
 var foodY = 0
 var score = 0
 
+var $startScreen = $('#start-screen')
+var $gameScreen = $('#game-screen')
+var $gameOver = $('#game-over')
+
+var $retry = $('#retry')
 
 //vars to detect key presses
 var rightPressed = false
@@ -24,52 +29,89 @@ var leftPressed = false
 var upPressed = false
 var downPressed = false
 
-//keys to control snakey
-$(document).on('keydown', function(e) {
-    if(e.keyCode === 38 && !downPressed) {
-        //up
-        upPressed = true
-        directionX = 0
-        directionY = -5
+//keys to control snakey and space to start
+function eventListeners() {
+    $(document).one('keydown', function(e) {
+        if(e.keyCode === 32) {
+           $startScreen.hide()
+           $gameScreen.show()
+        } 
+    })
+    
+    $(document).on('keydown', function(e) {
         
-        leftPressed = false
-        rightPressed = false
-        downPressed = false
-    }
-    if(e.keyCode === 40 && !upPressed) {
-        //down
-        downPressed = true
-        directionX = 0
-        directionY = 5
-        
-        upPressed = false
-        rightPressed = false
-        leftPressed = false
-    }
-    if(e.keyCode === 37 && !rightPressed) {
-        //left
-        leftPressed = true
-        directionX = -5
-        directionY = 0
-        
-        rightPressed = false
-        downPressed = false
-        upPressed = false
-    }
-    if(e.keyCode === 39 && !leftPressed) {
-        rightPressed = true
-        directionX = 5
-        directionY = 0
-        
-        leftPressed = false
-        upPressed = false
-        downPressed = false
-    }
-})
+        if(e.keyCode === 38 && !downPressed) {
+            //up
+            upPressed = true
+            directionX = 0
+            directionY = -5
+
+            leftPressed = false
+            rightPressed = false
+            downPressed = false
+        }
+        if(e.keyCode === 40 && !upPressed) {
+            //down
+            downPressed = true
+            directionX = 0
+            directionY = 5
+
+            upPressed = false
+            rightPressed = false
+            leftPressed = false
+        }
+        if(e.keyCode === 37 && !rightPressed) {
+            //left
+            leftPressed = true
+            directionX = -5
+            directionY = 0
+
+            rightPressed = false
+            downPressed = false
+            upPressed = false
+        }
+        if(e.keyCode === 39 && !leftPressed) {
+            rightPressed = true
+            directionX = 5
+            directionY = 0
+
+            leftPressed = false
+            upPressed = false
+            downPressed = false
+        }
+    })
+
+}
+
+$gameScreen.hide()
+$gameOver.hide()
+eventListeners()
 
 function displayScore() {
-    var $score = $('#score')
+    var $score = $('.score')
     $score.text('Score: ' + score)
+}
+
+
+function gameOverScreen() {
+    $gameScreen.fadeOut('slow')
+    $gameOver.fadeIn('fast')
+    
+
+    //add space to play again
+    $(document).one('keydown', function(e){
+        if(e.keyCode === 32) {
+            //reset snake
+            snake = [[150, 110],
+                    [150,115],
+                    [150,120],
+                    [150,125],
+                    [150,130]]
+            $gameOver.hide()
+            $gameScreen.show()
+        }
+    })
+    
 }
 
 //functions to randomize food spawn in units of 5
@@ -81,7 +123,6 @@ function randomizeFoodX() {
     }
 
     foodX = n - 5
-    console.log(foodX)
 }
 
 function randomizeFoodY() {
@@ -92,7 +133,6 @@ function randomizeFoodY() {
     }
 
     foodY = n - 5
-    console.log(foodY)
 }
 //call function once to set random food spawn (so its not redrawn every frame)
 randomizeFoodX()
@@ -135,12 +175,16 @@ function hitWalls() {
     if(snakeHeadX + directionX < 0 || snakeHeadX + directionX > $canvas.width - 5) {
         rightPressed = false
         leftPressed = false
-        location.reload()
+        directionX = 0
+        directionY = 0
+        gameOverScreen()
     }
     if(snakeHeadY + directionY < 0 || snakeHeadY + directionY > $canvas.height - 5) {
         upPressed = false
         downPressed = false
-        location.reload()
+        directionX = 0
+        directionY = 0
+        gameOverScreen()
     }
     
 }
@@ -149,7 +193,7 @@ function hitSelf() {
 //    ends game if snake hits self
     for(var a = 1; a < snake.length; a++) {
         if(snake[a][0] === snakeHeadX && snake[a][1] === snakeHeadY) {
-        location.reload()
+        gameOverScreen()
        }
     }
 }

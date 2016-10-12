@@ -1,6 +1,8 @@
 *{
     padding: 0;
-    margin: 0;
+    margin: 0 auto;
+    font-family: 'VT323', monospace;
+    text-align: center;
 }
 
 canvas {
@@ -9,12 +11,67 @@ canvas {
     margin: 0 auto;
     border: 2px solid black;
 }
+/*
 
-#myCanvas {
+********screens to hide/show*********
+#game-screen {
+    margin-top: 20px;
+}
+
+#start-screen {
+    margin-top: 20px;
+}
+
+#game-over {
+}
+*/
+
+
+
+
+#myCanvas, #start-container, #game-over-container {
     width: 480px;
     height: 320px;
+    background-color: #d0dbc6;
+    border: 2px solid black;
+    margin-top: 20px;
 }
 
-#score {
-    text-align: center;
+
+#start-container {
+    display: flex;
+    flex-direction: column;
 }
+
+h1 {
+    margin-top: 20px;
+    font-size: 3em;
+}
+
+.directions {
+    padding: 50px;
+}
+
+#game-screen .directions {
+    padding-top: 35px;
+}
+
+#game-over h1 {
+    margin-top: -5px;
+    margin-bottom: 10px;
+}
+
+#game-over .score {
+    margin-top: 45px;
+}
+
+#load-image {
+    padding: 40px;
+}
+
+#snake-img, #dead-snake {
+    margin-top: 30px;
+}
+
+
+
