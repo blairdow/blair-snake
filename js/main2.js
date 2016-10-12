@@ -31,6 +31,7 @@ var snakeHeadY = snake[0][1]
 var foodX = 0   
 var foodY = 0
 var score = 0
+var foodKind = 0
 
 //starting framerate
 var fps = 10
@@ -180,18 +181,18 @@ randomizeFoodX()
 randomizeFoodY()
 
 function pickFood() {
-    var x = Math.floor((Math.random()*3)+1)
-    return x
+    foodKind = Math.floor((Math.random()*3)+1)
+    console.log(foodKind)
 }
 //call to initialize food
 pickFood()
 
 function drawFood() {
-    if(pickFood == 1) {
+    if(foodKind == 1) {
         $ctx.clearRect(0, 0, $canvas.width, $canvas.height)
         $ctx.drawImage($pizza, foodX, foodY, 5, 5)  
     }
-    else if(pickFood == 2) {
+    else if(foodKind == 2) {
         $ctx.clearRect(0, 0, $canvas.width, $canvas.height)
         $ctx.drawImage($burger, foodX, foodY, 5, 5) 
     }
@@ -207,6 +208,7 @@ function eatFood() {
     if(foodX === snakeHeadX && foodY === snakeHeadY) {
         score++
         speedIncrease()
+        pickFood()
         var length = snake.length
         //if moving horizontally add length to x-axis
         if(leftPressed || rightPressed) {
