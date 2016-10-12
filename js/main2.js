@@ -3,11 +3,11 @@ console.log('linked')
 
 var $canvas = $('#myCanvas')[0]
 var $ctx = $canvas.getContext('2d')
-var snake = [[150, 110],
-             [150,115],
-             [150,120],
-             [150,125],
-             [150,130]]
+var snake = [[150,125],
+             [150,130],
+             [150,135],
+             [150,140],
+             [150,145]]
 
 var directionX = 0
 var directionY = 0
@@ -21,8 +21,6 @@ var $startScreen = $('#start-screen')
 var $gameScreen = $('#game-screen')
 var $gameOver = $('#game-over')
 
-var $retry = $('#retry')
-
 //vars to detect key presses
 var rightPressed = false
 var leftPressed = false
@@ -35,6 +33,7 @@ function eventListeners() {
         if(e.keyCode === 32) {
            $startScreen.hide()
            $gameScreen.show()
+//           $gameOver.hide()
         } 
     })
     
@@ -92,22 +91,15 @@ function displayScore() {
     $score.text('Score: ' + score)
 }
 
-
-function gameOverScreen() {
-    $gameScreen.fadeOut('slow')
-    setTimeout(function() {
-        $gameOver.fadeIn('fast')  
-    }, 1000)
-    
-    //add space to play again
+function resetGame() {
     $(document).one('keydown', function(e){
         if(e.keyCode === 32) {
             //reset snake
-            snake = [[150, 110],
-                    [150,115],
-                    [150,120],
-                    [150,125],
-                    [150,130]]
+            snake = [[150,125],
+                     [150,130],
+                     [150,135],
+                     [150,140],
+                     [150,145]]
             $gameOver.hide()
             setTimeout(function () {
                 score = 0
@@ -115,7 +107,15 @@ function gameOverScreen() {
             }, 500)
         }
     })
+}
+
+function gameOverScreen() {
+    $gameScreen.fadeOut('slow')
+    setTimeout(function() {
+        $gameOver.fadeIn('fast')  
+    }, 1000)
     
+    resetGame()    
 }
 
 //functions to randomize food spawn in units of 5
@@ -236,20 +236,25 @@ function drawSnake([n,m]) {
 }
 
 function draw() {
-    //do not change order of functions!
-    hitWalls()
-    displayScore()
-    drawFood()
-    
-    eatFood()
-    
-    moveSnake()
-    snake.forEach(drawSnake) 
-    hitSelf()
+    var fps = 10
+    setTimeout(function () {
+        //do not change order of functions!
+        hitWalls()
+        displayScore()
+        drawFood()
+
+        eatFood()
+
+        moveSnake()
+        snake.forEach(drawSnake) 
+        hitSelf()
+        requestAnimationFrame(draw)
+        
+    }, 1000/fps)
 }
 
 //interval for draw function
-setInterval(draw, 100)
+draw()
 
 
 
