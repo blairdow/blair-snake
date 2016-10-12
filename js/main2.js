@@ -151,23 +151,19 @@ function drawFood() {
 }
 
 function eatFood() {
-    //add length if snake going horizontal and hits food
+    //if food coordinates equal snake head coordinates, eat food and add length
     if(foodX === snakeHeadX && foodY === snakeHeadY) {
         score++
-        snake.unshift([foodX, foodY])
-//        if(rightPressed) {
-//            snake.unshift([foodX, foodY], [foodX-5, foodY], [foodX-10, foodY])
-//        }
-//        if(leftPressed) {
-//            snake.unshift([foodX, foodY], [foodX+5, foodY], [foodX+10, foodY])
-//        }
-//        if(downPressed) {
-//            snake.unshift([foodX, foodY], [foodX, foodY+5], [foodX, foodY+10])
-//        }
-//        if(upPressed) {
-//            snake.unshift([foodX, foodY], [foodX, foodY+5], [foodX, foodY+10])
-//        }
-        
+        var length = snake.length
+        //if moving horizontally add length to x-axis
+        if(leftPressed || rightPressed) {
+            snake.unshift([foodX, foodY])
+            snake.push([snake[length-1][0], snake[length-1][1]], [snake[length-1][0]+5, snake[length-1][1]])
+        }              
+        //if moving vertically add length to y-axis
+        if(upPressed || downPressed) {snake.unshift([foodX, foodY])
+        snake.push([snake[length-1][0], snake[length-1][1]], [snake[length-1][0], snake[length-1][1]+5])}        
+        //reset food spawn coordinates
         randomizeFoodX()
         randomizeFoodY()
     }
@@ -197,6 +193,13 @@ function hitSelf() {
 //    ends game if snake hits self
     for(var a = 1; a < snake.length; a++) {
         if(snake[a][0] === snakeHeadX && snake[a][1] === snakeHeadY) {
+        rightPressed = false
+        leftPressed = false
+        upPressed = false
+        downPressed = false
+        directionX = 0
+        directionY = 0
+        
         gameOverScreen()
        }
     }
@@ -233,14 +236,16 @@ function drawSnake([n,m]) {
 }
 
 function draw() {
-
+    //do not change order of functions!
+    hitWalls()
     displayScore()
     drawFood()
+    
+    eatFood()
+    
     moveSnake()
     snake.forEach(drawSnake) 
-    hitWalls()
     hitSelf()
-    eatFood()
 }
 
 //interval for draw function
