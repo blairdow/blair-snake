@@ -95,9 +95,10 @@ function displayScore() {
 
 function gameOverScreen() {
     $gameScreen.fadeOut('slow')
-    $gameOver.fadeIn('fast')
+    setTimeout(function() {
+        $gameOver.fadeIn('fast')  
+    }, 1000)
     
-
     //add space to play again
     $(document).one('keydown', function(e){
         if(e.keyCode === 32) {
@@ -108,7 +109,10 @@ function gameOverScreen() {
                     [150,125],
                     [150,130]]
             $gameOver.hide()
-            $gameScreen.show()
+            setTimeout(function () {
+                score = 0
+                $gameScreen.fadeIn('fast')
+            }, 500)
         }
     })
     
