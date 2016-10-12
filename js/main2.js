@@ -27,6 +27,8 @@ var leftPressed = false
 var upPressed = false
 var downPressed = false
 
+var selfGameOver = false
+
 //keys to control snakey and space to start
 function eventListeners() {
     $(document).one('keydown', function(e) {
@@ -91,31 +93,54 @@ function displayScore() {
     $score.text('Score: ' + score)
 }
 
-function resetGame() {
+//reset snake to start position
+function snakeReset () {
+    snake =[[150,125],
+             [150,130],
+             [150,135],
+             [150,140],
+             [150,145]]
+    }
+
+//function resetGame() {
+//    $(document).one('keydown', function(e){
+//        if(e.keyCode === 32) {
+//            console.log('reset')
+//            $gameOver.fadeOut()
+//        }
+////        if(e.keyCode === 32) {
+////            //reset snake
+////            snake = [[150,125],
+////                     [150,130],
+////                     [150,135],
+////                     [150,140],
+////                     [150,145]]
+////            $gameOver.fadeOut('fast')
+////            setTimeout(function () {
+////                score = 0
+////                $gameScreen.fadeIn('fast')
+////            }, 500)
+////        }
+//    })
+//}
+
+function gameOverScreen() {
+    //set space bar to reset game
     $(document).one('keydown', function(e){
         if(e.keyCode === 32) {
-            //reset snake
-            snake = [[150,125],
-                     [150,130],
-                     [150,135],
-                     [150,140],
-                     [150,145]]
-            $gameOver.hide()
+            $gameOver.fadeOut('fast')
             setTimeout(function () {
                 score = 0
                 $gameScreen.fadeIn('fast')
             }, 500)
         }
     })
-}
 
-function gameOverScreen() {
     $gameScreen.fadeOut('slow')
     setTimeout(function() {
-        $gameOver.fadeIn('fast')  
-    }, 1000)
-    
-    resetGame()    
+        $gameOver.fadeIn()
+        snakeReset()
+    }, 1000) 
 }
 
 //functions to randomize food spawn in units of 5
@@ -178,6 +203,7 @@ function hitWalls() {
         directionX = 0
         directionY = 0
         gameOverScreen()
+
     }
     if(snakeHeadY + directionY < 0 || snakeHeadY + directionY > $canvas.height - 5) {
         upPressed = false
@@ -186,24 +212,23 @@ function hitWalls() {
         directionY = 0
         gameOverScreen()
     }
-    
 }
 
 function hitSelf() {
-//    ends game if snake hits self
+   
     for(var a = 1; a < snake.length; a++) {
         if(snake[a][0] === snakeHeadX && snake[a][1] === snakeHeadY) {
-        rightPressed = false
-        leftPressed = false
-        upPressed = false
-        downPressed = false
-        directionX = 0
-        directionY = 0
-        
-        gameOverScreen()
+            rightPressed = false
+            leftPressed = false
+            upPressed = false
+            downPressed = false
+            directionX = 0
+            directionY = 0
+            gameOverScreen()
        }
     }
 }
+
 
 function moveSnake() {
     if(rightPressed) {
@@ -240,6 +265,7 @@ function draw() {
     setTimeout(function () {
         //do not change order of functions!
         hitWalls()
+        hitSelf()
         displayScore()
         drawFood()
 
@@ -247,16 +273,9 @@ function draw() {
 
         moveSnake()
         snake.forEach(drawSnake) 
-        hitSelf()
         requestAnimationFrame(draw)
         
     }, 1000/fps)
 }
 
-//interval for draw function
 draw()
-
-
-
-//on arrow key press, reset direction variables
-//to change snake speed, change speed of setInterval function
