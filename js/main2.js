@@ -136,6 +136,7 @@ function gameOverScreen() {
             $gameOver.fadeOut('fast')
             setTimeout(function () {
                 score = 0
+                fps = 10
                 $gameScreen.fadeIn('fast')
             }, 500)
         }
