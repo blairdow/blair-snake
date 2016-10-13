@@ -101,7 +101,7 @@ function eventListeners() {
 }
 
 //************set starting environment
-//$startScreen.hide()
+
 $gameScreen.hide()
 $gameOver.hide()
 eventListeners()
