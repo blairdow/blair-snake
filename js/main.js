@@ -12,19 +12,19 @@ var snake = [[150,125],
 //******** image elements
 var $burger = $('<img>', {
     id: 'burger',
-    src: '../css/images/chzburger.png',
+    src: 'css/images/chzburger.png',
     alt: 'burger'    
 })[0]
 
 var $cherries = $('<img>', {
     id: 'cherries',
-    src: '../css/images/cherries.png',
+    src: 'css/images/cherries.png',
     alt: 'cherries'
 })[0]
 
 var $pizza = $('<img>', {
     id: 'pizza',
-    src: '../css/images/pizza.png',
+    src: 'css/images/pizza.png',
     alt: 'pizza'
 })[0]
 
