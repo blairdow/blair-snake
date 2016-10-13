@@ -16,10 +16,17 @@
         <div id="load-image">
            <h2>Welcome to BlairSnake!<br>This is not your ordinary game of snake.</h2>
             <img src="css/images/8bitsnake.gif" alt="8-bit snake" id = 'snake-img'>
+            
+            <h2 class='speed'>Choose your speed...</h2>
+            <div class="speed-buttons">
+                <button type='button' class='fast'>fast</button>
+                <button type='button' class='faster'>faster</button>
+                <button type='button' class ='fastest'>fastest!</button>
+            </div>
         </div>
 
         <div class = 'directions'>
-            <h2>-  Push Space Bar to start -<br>use arrow keys to navigate<br>eat the food<br>don't hit the walls or your tail!</h2>
+            <h2><span class='space-bar'>-  Push Space Bar to start -</span><br>use arrow keys to navigate<br>eat the food<br>don't hit the walls or your tail!</h2>
         </div>
     </div>
 </section>
@@ -35,13 +42,22 @@
 <section id="game-over">
     <div id="game-over-container">
         <h1>You died.</h1>
-        <img src="css/images/dead_snake.gif" id='dead-snake' alt='dead snake'>
         <h2>You played ya'self.</h2>
-        <h2 id="retry">- push space to play again! -</h2>
+        <img src="css/images/dead_snake.gif" id='dead-snake' alt='dead snake'>
+        <h2 class='speed' class='emphasize'>choose your speed...</h2>
+            <div class="speed-buttons">
+                <button type='button' class='fast'>fast</button>
+                <button type='button' class='faster'>faster</button>
+                <button type='button' class ='fastest'>fastest!</button>
+            </div>
+            
+        <h2 class="space-bar">- push space to play again! -</h2>
         <h2 class='score'></h2>
     </div>
 </section>
-       
+    
+    <audio src="sounds/start.wav" id="start"></audio>
+    <audio src="sounds/food.wav" id="food"></audio> <audio src="sounds/death.wav" id="death"></audio>  
     <script src= "js/main.js"></script>
     
 </body>
