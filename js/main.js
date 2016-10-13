@@ -133,15 +133,15 @@ function eventListeners() {
 //***** starting speed selector
 $($fast).on('click', function() {
     fps = 10
-    $('.space-bar').toggleClass('emphasize')
+    $('.space-bar').css({'color': '#eb00ff', 'text-shadow':'2px 2px aqua'})
 })
 $($faster).on('click', function() {
     fps = 15
-    $('.space-bar').toggleClass('emphasize')
+    $('.space-bar').css({'color': '#eb00ff', 'text-shadow':'2px 2px aqua'})
 })
 $($fastest).on('click', function () {
     fps = 20
-    $('.space-bar').toggleClass('emphasize')
+    $('.space-bar').css({'color': '#eb00ff', 'text-shadow':'2px 2px aqua'})
 })
 
 //************set starting environment
@@ -158,7 +158,6 @@ function displayScore() {
 function speedIncrease() {
     if(score%5 === 0) {
         fps += 3
-        console.log('increase speed', fps)
     }
 }
 
@@ -173,23 +172,11 @@ function snakeReset () {
 
 //runs if snake hits self or walls
 function gameOverScreen() {
-    //set space bar to reset game
-//    $(document).on('keydown', function(e){
-//        if(fps > 0 && e.keyCode === 32) {
-//            $gameOver.fadeOut('fast')
-////            setTimeout(function () {
-////                score = 0
-////                $gameScreen.fadeIn('slow')
-////                startSound()
-////            }, 500)
-//        }
-//    })
-    
     $gameScreen.fadeOut('slow')
     deathSound()
     $ctx.clearRect(0, 0, $canvas.width, $canvas.height)
+    fps = 0
     setTimeout(function() {
-        fps = 0
         $gameOver.fadeIn()
         snakeReset()
     }, 1000) 
@@ -228,7 +215,6 @@ randomizeFoodY()
 
 function pickFood() {
     foodKind = Math.floor((Math.random()*3)+1)
-    console.log(foodKind)
 }
 //call to initialize food
 pickFood()
