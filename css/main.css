@@ -1,3 +1,5 @@
+/*******general styles******/
+
 *{
     padding: 0;
     margin: 0 auto;
@@ -23,13 +25,8 @@ canvas {
     width: 480px;
     height: 320px;
     background-color: rgba(255, 213, 232, 0.67);
-    border: 2px solid black;
+    border: dashed #eb00ff;
     margin-top: 20px;
-}
-
-#start-container {
-    display: flex;
-    flex-direction: column;
 }
 
 h1 {
@@ -37,33 +34,82 @@ h1 {
     font-size: 3em;
 }
 
-.directions {
-    padding: 50px;
+/*text emphasis class */
+@keyframes aqua {
+    from {
+        text-shadow: 2px 2px aqua;
+        color: #eb00ff;            
+    }
+    to {text-shadow: none; color: black;}
 }
+.emphasize {
+    animation-name: aqua;
+    animation-duration: 5s;
+}
+
+/********start screen styles******/
+#start-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.directions {
+    padding: 13px;
+}
+
+#load-image {
+    padding: 20px 0 40px 0;
+}
+
+#snake-img {
+    margin: 10px 0 10px 0;
+}
+
+/*******speed button styles********/
+
+button {
+    font-size: 1.5em;
+    background-color: rgba(255, 213, 232, 0.74);
+    border-radius: 5px;
+    padding: 2px 5px;
+    width: 100px;
+    margin-top: 10px;
+}
+
+.fastest {
+    font-style: italic;
+}
+
+.speed-buttons {
+/*    display: flex;    */
+}
+
+/********game play screen styles********/
 
 #game-screen .directions {
     padding-top: 35px;
 }
 
+/********game over screen styles******/
+
 #game-over h1 {
-    margin-top: -5px;
-    margin-bottom: 10px;
+    margin-top: 0px;
+}
+
+#game-over .speed-buttons {
+    display: block;
+}
+
+#game-over button {
+    margin-bottom: 5px;
 }
 
 #game-over .score {
-    margin-top: 45px;
+    margin-top: 10px;
 }
 
-#load-image {
-    padding: 40px;
+#dead-snake {
+    width: 100px;
+    margin: 10px 0 0 0;
 }
-
-#snake-img, #dead-snake {
-    margin-top: 30px;
-}
-
-.class {
-    color: rgb(7, 248, 100)
-}
-
 
