@@ -25,7 +25,7 @@ canvas {
     width: 480px;
     height: 320px;
     background-color: rgba(255, 213, 232, 0.67);
-    border: 2px solid black;
+    border: dashed #eb00ff;
     margin-top: 20px;
 }
 
@@ -105,7 +105,7 @@ button {
 }
 
 #game-over .score {
-    margin-top: 18px;
+    margin-top: 10px;
 }
 
 #dead-snake {

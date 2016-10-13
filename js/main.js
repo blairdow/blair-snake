@@ -45,17 +45,17 @@ var $fastest = $('.fastest')
 
 //sounds
 var startSound = function() {
+    document.querySelector('#start').volume = 0.3
     document.querySelector('#start').play()
 }
-startSound.volume = 0.5
 var foodSound = function() {
+    document.querySelector('#food').volume = 0.3
     document.querySelector('#food').play()
 }
-foodSound.volume = 0.5
 var deathSound = function() {
+    document.querySelector('#death').volume = 0.3
     document.querySelector('#death').play()
 }
-deathSound.volume = 0.5
 
 //starting framerate - selected with buttons
 var fps = 0
@@ -79,8 +79,8 @@ function eventListeners() {
            score = 0
            $startScreen.hide()
            $gameOver.hide()
-           $gameScreen.fadeIn('slow')
            startSound()
+           $gameScreen.fadeIn('slow')
         }
         else if(e.keyCode === 32) {
             $('.speed').toggleClass('emphasize')
@@ -175,8 +175,8 @@ function gameOverScreen() {
     $gameScreen.fadeOut('slow')
     deathSound()
     $ctx.clearRect(0, 0, $canvas.width, $canvas.height)
-    fps = 0
     setTimeout(function() {
+        fps = 0
         $gameOver.fadeIn()
         snakeReset()
     }, 1000) 
@@ -184,27 +184,17 @@ function gameOverScreen() {
 
 //functions to randomize food spawn in units of 5
 function randomizeFoodX() {
-    var counter = 0
     var n = Math.floor((Math.random() * $canvas.width) + 1)
-    for(var i = 0; i < snake.length; i++) {
-        if(snake[i][0] === n) {
-            counter++
-        }  
-    }
-    while (n%5 !== 0 && counter < 1) {
+
+    while (n%5 !== 0) {
         n = Math.floor((Math.random() * $canvas.width) + 1)
     }
     foodX = n - 5
 }
 function randomizeFoodY() {
-    var counter = 0
     var n = Math.floor((Math.random() * $canvas.height) + 1)
-    for(var i = 0; i < snake.length; i++) {
-        if(snake[i][1] === n) {
-            counter++
-        }  
-    }
-    while (n%5 !== 0 && counter < 1) {
+
+    while (n%5 !== 0) {
         n = Math.floor((Math.random() * $canvas.height) + 1)
     }
     foodY = n - 5
