@@ -182,31 +182,35 @@ function gameOverScreen() {
     }, 1000) 
 }
 
-//functions to randomize food spawn in units of 5
-function randomizeFoodX() {
-    var n = Math.floor((Math.random() * $canvas.width) + 1)
-
-    while (n%5 !== 0) {
-        n = Math.floor((Math.random() * $canvas.width) + 1)
-    }
-    foodX = n - 5
+//function to randomize food spawn in units of 5
+function randomizeFood() {
+  //function to create random multiples of 5
+  function rand_5(min, max){
+    return Math.round((Math.random()*(max-min)+min)/5)*5;
+  }
+  var x = rand_5(0, $canvas.width)
+  var y = rand_5(0, $canvas.height)
+  //check if x or y are in snake area
+  var duplicate = false
+  for(var i = 0; i < snake.length; i++) {
+      if (snake[i][0] === x && snake[i][1] === y)
+          duplicate = true
+  }
+  if (duplicate) {
+    return randomizeFood()
+  } 
+  else {
+    foodX = x
+    foodY = y
+  }
 }
-function randomizeFoodY() {
-    var n = Math.floor((Math.random() * $canvas.height) + 1)
-
-    while (n%5 !== 0) {
-        n = Math.floor((Math.random() * $canvas.height) + 1)
-    }
-    foodY = n - 5
-}
-//call function once to set random food spawn (so its not redrawn every frame)
-randomizeFoodX()
-randomizeFoodY()
+//call to set initial food coordinates
+randomizeFood()
 
 function pickFood() {
     foodKind = Math.floor((Math.random()*3)+1)
 }
-//call to initialize food
+//call to initialize food type
 pickFood()
 
 function drawFood() {
@@ -243,8 +247,7 @@ function eatFood() {
             {snake.unshift([foodX, foodY])
             snake.push([snake[length-1][0], snake[length-1][1]], [snake[length-1][0], snake[length-1][1]+5])}        
         //reset food type and location
-        randomizeFoodX()
-        randomizeFoodY()
+        randomizeFood()
         pickFood()
     } 
 }
