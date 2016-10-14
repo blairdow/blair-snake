@@ -7,12 +7,29 @@
     text-align: center;
 }
 
+html, body{
+    height: 100%;
+}
+
 body{
     background-color: #73e0ff;
     background-image: url(images/sky-background.png);
     background-attachment: fixed;
-    background-size: auto 100%
+    background-size: auto 100%;
   
+}
+
+.wrapper {
+    min-height: 100%;
+    margin: 0 auto -4em;
+}
+
+footer {
+    height: 4em;
+} 
+
+.push {
+    height: 12em;
 }
 
 canvas {
@@ -113,16 +130,14 @@ button {
     margin: 10px 0 0 0;
 }
 
-footer {
-    position: absolute;
-    left: 45%;
-    bottom: 5%;
-}
-
 a {
     text-decoration: none;
     color: #eb00ff;
 }
 a:hover {
     text-decoration: underline;
+}
+
+.twitter {
+    color: #00aced;
 }
