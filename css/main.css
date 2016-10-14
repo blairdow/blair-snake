@@ -7,9 +7,11 @@
     text-align: center;
 }
 
+/*
 html, body{
     height: 100%;
 }
+*/
 
 body{
     background-color: #73e0ff;
@@ -116,6 +118,7 @@ button {
 }
 
 /*********sticky footer **********/
+/*
 
 .wrapper {
     min-height: 100%;
@@ -127,11 +130,17 @@ footer {
 } 
 
 .push {
-    height: 12em;
+    height: 4em;
 }
+*/
 
 /***********footer styles**********/
 
+footer {
+    position: absolute;
+    left: 40%;
+    bottom: 10px;
+}
 a {
     text-decoration: none;
     color: #eb00ff;
