@@ -207,6 +207,7 @@ function randomizeFood() {
         console.log(foodX, foodY)
     }
 }
+
 //call to set initial food coordinates
 randomizeFood()
 
