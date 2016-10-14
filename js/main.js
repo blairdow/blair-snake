@@ -185,24 +185,24 @@ function gameOverScreen() {
 //function to randomize food spawn in units of 5
 function randomizeFood() {
   //function to create random multiples of 5
-  function rand_5(min, max){
-    return Math.round((Math.random()*(max-min)+min)/5)*5;
-  }
-  var x = rand_5(0, $canvas.width)
-  var y = rand_5(0, $canvas.height)
-  //check if x or y are in snake area
-  var duplicate = false
-  for(var i = 0; i < snake.length; i++) {
-      if (snake[i][0] === x && snake[i][1] === y)
-          duplicate = true
-  }
-  if (duplicate) {
-    return randomizeFood()
-  } 
-  else {
-    foodX = x
-    foodY = y
-  }
+    function rand_5(min, max){
+        return Math.round((Math.random()*(max-min)+min)/5)*5;
+      }
+    var x = rand_5(0, $canvas.width)
+    var y = rand_5(0, $canvas.height)
+    //check if x or y are in snake area
+    var duplicate = false
+    for(var i = 0; i < snake.length; i++) {
+        if (snake[i][0] === x && snake[i][1] === y)
+            duplicate = true
+            }
+    if (duplicate) {
+        return randomizeFood()
+    } 
+    else {
+        foodX = x
+        foodY = y
+    }
 }
 //call to set initial food coordinates
 randomizeFood()
