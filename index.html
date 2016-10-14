@@ -8,9 +8,12 @@
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="css/main.css">
 </head>
+
 <body>
 <div class="wrapper">
    <h1>BlairSnake</h1>
+
+<!--start screen-->
 <section id="start-screen">
     <div id="start-container">
         
@@ -32,6 +35,7 @@
     </div>
 </section>
 
+<!--game screen-->
 <section id="game-screen">
     <canvas id="myCanvas"></canvas>
     <h2 class='score'></h2>
@@ -40,6 +44,7 @@
     </div>
 </section>
 
+<!--game over screen-->
 <section id="game-over">
     <div id="game-over-container">
         <h1>You died.</h1>
@@ -59,11 +64,16 @@
 
 <div class="push"></div>
 </div>
+
+<!--footer-->
 <footer>built by <a href="https://github.com/blairdow/blair-snake">Blair Dowis</a>
 <a class="twitter" href="https://www.twitter.com/blairdow"><i class="icon ion-social-twitter"></i></a>
-</footer>     
+</footer>   
+
+<!--audio files  -->
     <audio src="sounds/start.wav" id="start"></audio>
     <audio src="sounds/food.wav" id="food"></audio> <audio src="sounds/death.wav" id="death"></audio>  
+    
     <script src= "js/main.js"></script>
 </body>
 </html>
