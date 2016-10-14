@@ -187,21 +187,24 @@ function randomizeFood() {
   //function to create random multiples of 5
     function rand_5(min, max){
         return Math.round((Math.random()*(max-min)+min)/5)*5;
-      }
-    var x = rand_5(0, $canvas.width)
-    var y = rand_5(0, $canvas.height)
+    }
+    var x = rand_5(0, $canvas.width-5)
+    var y = rand_5(0, $canvas.height-5)
     //check if x or y are in snake area
     var duplicate = false
     for(var i = 0; i < snake.length; i++) {
         if (snake[i][0] === x && snake[i][1] === y)
             duplicate = true
-            }
+    }
+    
     if (duplicate) {
+        console.log('recursion', duplicate)
         return randomizeFood()
     } 
     else {
         foodX = x
         foodY = y
+        console.log(foodX, foodY)
     }
 }
 //call to set initial food coordinates
