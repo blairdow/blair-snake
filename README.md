@@ -30,6 +30,7 @@ Download code from this repository to install locally.
 ###Issues  
 * Animation glitch that causes snake to die without actually hitting itself. For example if you are moving right, and hit down then left too quickly, snake will die without appearing to actually hit itself. This could be a glitch in my hitSelf() function, but as far as I can tell it is just that the animation isn't drawing quickly enough.
 * Fix centering of footer
+* Safari formatting issue (naturally) (also still need to test in IE *shudder*)
 
 ##Gist of eatFood() function
 [BlairSnake Gist](https://gist.github.com/blairdow/fc90d88c25daebfd8952da39770fb958)
