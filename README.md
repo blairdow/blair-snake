@@ -27,7 +27,6 @@ Download code from this repository to install locally.
 * More food types with varying scores    
 * Bombs spawn after certain scores are reached that snake has to avoid  
 * Add emphasis to speed and space bar prompts on Game Over Screen
-* Favicon
 
 ###Issues  
 * Animation glitch that causes snake to die without actually hitting itself. For example if you are moving right, and hit down then left too quickly, snake will die without appearing to actually hit itself. This could be a glitch in my hitSelf() function, but as far as I can tell it is just that the animation isn't drawing quickly enough.

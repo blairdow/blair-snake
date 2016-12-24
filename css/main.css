@@ -117,34 +117,19 @@ button {
     margin: 10px 0 0 0;
 }
 
-/*********sticky footer **********/
-/*
-
-.wrapper {
-    min-height: 100%;
-    margin: 0 auto -4em;
-}
-
-footer {
-    height: 4em;
-} 
-
-.push {
-    height: 4em;
-}
-*/
-
 /***********footer styles**********/
 
-footer {
-    position: absolute;
-    left: 40%;
-    bottom: 10px;
+.footer {
+    padding-top: 40%;
+    width: 100%;
+    text-align: center;
 }
+
 a {
     text-decoration: none;
     color: #eb00ff;
 }
+
 a:hover {
     text-decoration: underline;
 }
