@@ -7,11 +7,11 @@
     text-align: center;
 }
 
-/*
-html, body{
-    height: 100%;
+/*******utility styles******/
+.italic {
+  font-style: italic;
 }
-*/
+
 
 body{
     background-color: #73e0ff;
@@ -27,7 +27,7 @@ canvas {
     border: 2px solid black;
 }
 
-#myCanvas, #start-container, #game-over-container {
+.game-container {
     width: 480px;
     height: 320px;
     background-color: rgba(255, 213, 232, 0.67);
@@ -42,6 +42,13 @@ h1 {
 
 
 /*******text emphasis class for animation*********/
+@-webkit-keyframes aqua {
+    from {
+        text-shadow: 2px 2px aqua;
+        color: #eb00ff;            
+    }
+    to {text-shadow: none; color: black;}
+}
 @keyframes aqua {
     from {
         text-shadow: 2px 2px aqua;
@@ -50,14 +57,21 @@ h1 {
     to {text-shadow: none; color: black;}
 }
 .emphasize {
+    -webkit-animation-name: aqua;
     animation-name: aqua;
+    -webkit-animation-duration: 5s;
     animation-duration: 5s;
 }
 
 /********start screen styles******/
 
 #start-container {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
 }
 
@@ -79,13 +93,16 @@ button {
     font-size: 1.5em;
     background-color: rgba(255, 213, 232, 0.74);
     border-radius: 5px;
+    border: dashed rgba(235, 0, 255, 0);
     padding: 2px 5px;
     width: 100px;
     margin-top: 10px;
+    -webkit-transition: 0.2s ease-out;
+    transition: 0.2s ease-out;
 }
 
-.fastest {
-    font-style: italic;
+button:hover {
+  border-color: rgb(235, 0, 255);
 }
 
 /********game play screen styles********/
@@ -117,34 +134,20 @@ button {
     margin: 10px 0 0 0;
 }
 
-/*********sticky footer **********/
-/*
-
-.wrapper {
-    min-height: 100%;
-    margin: 0 auto -4em;
-}
-
-footer {
-    height: 4em;
-} 
-
-.push {
-    height: 4em;
-}
-*/
-
 /***********footer styles**********/
 
-footer {
-    position: absolute;
-    left: 40%;
-    bottom: 10px;
+.footer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 10px;
 }
+
 a {
     text-decoration: none;
     color: #eb00ff;
 }
+
 a:hover {
     text-decoration: underline;
 }

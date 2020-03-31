@@ -75,6 +75,7 @@ var downPressed = false
 function eventListeners() {
     //space bar to start game
     $(document).on('keydown', function(e) {
+        //must select speed (fps) before start
         if(fps > 0 && e.keyCode === 32) {
            score = 0
            $startScreen.hide()
