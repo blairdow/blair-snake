@@ -17,7 +17,7 @@
 
 <!--start screen-->
 <section id="start-screen">
-    <div id="start-container">
+  <div id="start-container" class="game-container">
         
         <div id="load-image">
            <h2>Welcome to BlairSnake!<br>This is not your ordinary game of snake.</h2>
@@ -25,13 +25,13 @@
             
             <h2 class='speed'>Choose your speed...</h2>
             <div class="speed-buttons">
-                <button type='button' class='fast'>fast</button>
-                <button type='button' class='faster'>faster</button>
-                <button type='button' class ='fastest'>fastest!</button>
+                <button type='button'>fast</button>
+                <button type='button'>faster</button>
+                <button type='button' class ='italic'>fastest!</button>
             </div>
         </div>
 
-        <div class = 'directions'>
+        <div class='directions'>
             <h2><span class='space-bar'>-  Push Space Bar to start -</span><br>use arrow keys to navigate<br>eat the food<br>don't hit the walls or your tail!</h2>
         </div>
     </div>
@@ -39,7 +39,7 @@
 
 <!--game screen-->
 <section id="game-screen">
-    <canvas id="myCanvas"></canvas>
+    <canvas id="myCanvas" class="game-container"></canvas>
     <h2 class='score'></h2>
     <div class= 'directions'>
             <h2>use arrow keys to navigate<br>eat the food<br>don't hit the walls or your tail!</h2>
@@ -48,7 +48,7 @@
 
 <!--game over screen-->
 <section id="game-over">
-    <div id="game-over-container">
+  <div id="game-over-container" class="game-container">
         <h1>You died.</h1>
         <h2>You played ya'self.</h2>
         <img src="css/images/dead_snake.gif" id='dead-snake' alt='dead snake'>
