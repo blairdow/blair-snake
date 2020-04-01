@@ -27,16 +27,19 @@ var $pizza = $('<img>', {
     src: 'css/images/pizza.png',
     alt: 'pizza'
 })[0]
-
+var foodTypes = [$burger, $pizza, $cherries];
 
 var directionX = 0
 var directionY = 0
+var directionCoords = [0, 0]
 var snakeHeadX = snake[0][0]
 var snakeHeadY = snake[0][1]
+var snakeHeadCoords = [snake[0][0], snake[0, 1]]
 var foodX = 0   
 var foodY = 0
+var foodCoords = [0, 0]
 var score = 0
-var foodKind = 0
+var foodKind = Math.floor((Math.random()*3));
 
 //speed selector buttons
 var $fast = $('.fast')
@@ -183,8 +186,8 @@ function gameOverScreen() {
     }, 1000) 
 }
 
-//function to randomize food spawn in units of 5
-function randomizeFood() {
+//function to randomize food spawn location  in units of 5
+function randomizeFoodLocation() {
   //function to create random multiples of 5
     function rand_5(min, max){
         return Math.round((Math.random()*(max-min)+min)/5)*5;
@@ -199,44 +202,31 @@ function randomizeFood() {
     }
     
     if (duplicate) {
-        console.log('recursion', duplicate)
-        return randomizeFood()
+        return randomizeFoodLocation()
     } 
     else {
         foodX = x
         foodY = y
-        console.log(foodX, foodY)
+        foodCoords = [x, y]
     }
 }
 
-//call to set initial food coordinates
-randomizeFood()
-
+//randomize type of food
 function pickFood() {
-    foodKind = Math.floor((Math.random()*3)+1)
+  foodKind = Math.floor((Math.random()*3))
 }
-//call to initialize food type
-pickFood()
 
-function drawFood() {
-    if(foodKind == 1) {
-        $ctx.clearRect(0, 0, $canvas.width, $canvas.height)
-        $ctx.drawImage($pizza, foodX, foodY, 5, 5)  
-    }
-    else if(foodKind == 2) {
-        $ctx.clearRect(0, 0, $canvas.width, $canvas.height)
-        $ctx.drawImage($burger, foodX, foodY, 5, 5) 
-    }
-    else {
-        $ctx.clearRect(0, 0, $canvas.width, $canvas.height)
-        $ctx.drawImage($cherries, foodX, foodY, 5, 5) 
-    } 
+function drawFood(foodKind) {
+    let food = foodTypes[foodKind]
+    $ctx.clearRect(0, 0, $canvas.width, $canvas.height)
+    $ctx.drawImage(food, foodCoords[0], foodCoords[1], 5, 5)  
+    
  }
 
 //runs when snake hits food to add length
 function eatFood() {
     //if food coordinates equal snake head coordinates, eat food and add length
-    if(foodX === snakeHeadX && foodY === snakeHeadY) {
+    if(foodCoords[0] === snakeHeadX && foodCoords[1] === snakeHeadY) {
         score++
         foodSound()
         speedIncrease()
@@ -252,7 +242,7 @@ function eatFood() {
             {snake.unshift([foodX, foodY])
             snake.push([snake[length-1][0], snake[length-1][1]], [snake[length-1][0], snake[length-1][1]+5])}        
         //reset food type and location
-        randomizeFood()
+        randomizeFoodLocation()
         pickFood()
     } 
 }
@@ -328,6 +318,9 @@ function drawSnake([n,m]) {
     $ctx.closePath()
 }
 
+//call to set initial food coordinates
+randomizeFoodLocation()
+
 //animation!
 function draw() {
     setTimeout(function () {
@@ -335,7 +328,7 @@ function draw() {
         hitWalls()
         hitSelf()
         displayScore()
-        drawFood()
+        drawFood(foodKind)
 
         eatFood()
 
