@@ -1,5 +1,7 @@
 #BlairSnake
 
+TEST COMMIT
+
 My version of the classic Nokia game, Snake! Use the arrow keys to move the snake around the playing field. Eat the burger, pizza, and cherries. Don't hit your tail or the walls. Watch out, speed increases the higher your score gets! Have fun.
 
 ##Technologies used
