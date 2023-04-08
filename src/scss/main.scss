@@ -1,45 +1,18 @@
-/*******general styles******/
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
-*{
-    padding: 0;
-    margin: 0 auto;
-    font-family: 'VT323', monospace;
-    text-align: center;
+@layer base {
+    h1, h2 {
+        @apply m-0;
+    }
+    button {
+        @apply font-[inherit];
+    }
+    .game-container {
+        @apply border-dashed border-2 border-[#eb00ff] bg-pink-light w-[480px] h-[320px] mt-5;
+    }
 }
-
-/*******utility styles******/
-.italic {
-  font-style: italic;
-}
-
-
-body{
-    background-color: #73e0ff;
-    background-image: url(images/sky-background.png);
-    background-attachment: fixed;
-    background-size: auto 100%;
-  
-}
-
-canvas {
-    display: block;
-    margin: 0 auto;
-    border: 2px solid black;
-}
-
-.game-container {
-    width: 480px;
-    height: 320px;
-    background-color: rgba(255, 213, 232, 0.67);
-    border: dashed #eb00ff;
-    margin-top: 20px;
-}
-
-h1 {
-    margin-top: 20px;
-    font-size: 3em;
-}
-
 
 /*******text emphasis class for animation*********/
 @-webkit-keyframes aqua {
@@ -61,30 +34,6 @@ h1 {
     animation-name: aqua;
     -webkit-animation-duration: 5s;
     animation-duration: 5s;
-}
-
-/********start screen styles******/
-
-#start-container {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
-    flex-direction: column;
-}
-
-.directions {
-    padding: 13px;
-}
-
-#load-image {
-    padding: 20px 0 40px 0;
-}
-
-#snake-img {
-    margin: 10px 0 10px 0;
 }
 
 /*******speed button styles********/

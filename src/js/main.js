@@ -1,3 +1,5 @@
+import sounds from './sounds'
+import images from './images'
 
 var $canvas = $('#myCanvas')[0]
 var $ctx = $canvas.getContext('2d')
@@ -12,19 +14,19 @@ var snake = [[150,125],
 //******** image elements
 var $burger = $('<img>', {
     id: 'burger',
-    src: 'css/images/chzburger.png',
+    src: './build/images/chzburger.png',
     alt: 'burger'    
 })[0]
 
 var $cherries = $('<img>', {
     id: 'cherries',
-    src: 'css/images/cherries.png',
+    src: './build/images/cherries.png',
     alt: 'cherries'
 })[0]
 
 var $pizza = $('<img>', {
     id: 'pizza',
-    src: 'css/images/pizza.png',
+    src: './build/images/pizza.png',
     alt: 'pizza'
 })[0]
 
@@ -152,7 +154,7 @@ eventListeners()
 
 function displayScore() {
     var $score = $('.score')
-    $score.text('Score: ' + score)
+    $score.text(score)
 }
 
 //increase speed when score is 5, 10, 15, etc
