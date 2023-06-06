@@ -8,6 +8,10 @@ module.exports = {
     preflight: false,
   },
   darkMode: false, // or 'media' or 'class'
+  safeList: [
+    'animate-ping',
+    'animate-emphasize'
+  ],
   theme: {
     backgroundSize: {
       'auto': 'auto',
@@ -26,50 +30,38 @@ module.exports = {
     },
     extend: {
       animation: {
-        'fade-in': 'fadeIn 300ms ease-in forwards',
-        'fade-out': 'fadeOut 300ms ease-out forwards',
-        'fade-out-delay': 'fadeOut 300ms ease-out 300ms forwards',
-        'pop-in': 'popIn 300ms ease-out',
-        'pop-out': 'popOut 300ms ease-in',
-        'rotate-in': 'rotateIn 600ms ease-in-out forwards',
-        'rotate-out': 'rotateOut 600ms ease-in-out forwards',
+        'emphasize': 'scale-color 1s infinite ease forwards',
       },
       backgroundImage: theme => ({
         'sky': "url('/build/images/sky-background.png')"
       }),
+      borderWidth: {
+        '1.5': '1.5px' 
+      },
       colors: {
         blue: {
-          'light': '#73e0ff'
+          'light': '#73e0ff',
+          'twitter': '#00aced'
         },
         pink: {
-          'light': 'rgba(255, 213, 232, 0.67)'
+          DEFAULT: 'rgb(255, 213, 232)'
+        },
+        magenta: {
+          DEFAULT: '#eb00ff'
         }
       },
       fontFamily: {
         'VT323': ['VT323', 'mono']
       },
       keyframes: {
-        fadeIn: {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '100%' },
+        aqua: {
+          from: { 'text-shadow': 'none', color: 'black', transform: 'scale(1.5)' },
+          to: { 'text-shadow': '2px 2px aqua', color: '#eb00ff', transform: 'scale(1.5)' }
         },
-        fadeOut: {
-          '0%': { opacity: '100%' },
-          '100%': { opacity: '0' },
-        },
-        popIn: {
-          from: {opacity: '0', transform: 'scale(.95)'},
-          to: {opacity: '100%', transform: 'scale(1)'}
-        },
-        popOut: {
-          from: {opacity: '100%', transform: 'scale(1)'},
-          to: {opacity: '0', transform: 'scale(.95)'}
-        },
-        rotateIn: {
-          '0%': { transform: 'rotateY(90deg)' },
-          '50%': { transform: 'scale(1.05)'},
-          '80%': { transform: 'rotateY(-10deg) scale(1)' },
-          '100%': { transform: 'rotateY(0)' },
+        'scale-color': {
+          '0%': {'transform': 'scale(1)', 'color': '#eb00ff', 'text-shadow':'2px 2px aqua'},
+          '50%': {'transform': 'scale(1.1)', 'color': '#eb00ff', 'text-shadow':'2px 2px aqua'},
+          '100%': {'transform': 'scale(1)', 'color': '#eb00ff', 'text-shadow':'2px 2px aqua'}
         },
         rotateOut: {
           '0%': { transform: 'rotateY(0)' },

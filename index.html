@@ -12,67 +12,59 @@
     <link rel="stylesheet" href="build/css/style.css">
 </head>
 
-<body class="bg-sky bg-fixed bg-[size:auto_100%] bg-[color:#73e0ff] text-center font-VT323">
-    <div class="wrapper">
+<body class="bg-sky bg-fixed bg-[size:auto_100%] bg-[color:#73e0ff] text-center font-VT323 flex flex-col">
+    <div class="wrapper flex-grow flex-shrink-0">
         <h1 class="mt-5 mb-0 text-5xl">BlairSnake</h1>
-        <!--start screen-->
-        <section id="start-screen">
-            <div id="start-container" class="game-container mx-auto flex flex-col">
-                <div class="pt-5 pb-10">
-                    <h2>Welcome to BlairSnake!<br>This is not your ordinary game of snake.</h2>
-                    <img src="build/images/8bitsnake.gif" alt="8-bit snake" class="my-2">
-                    
-                    <h2 class="speed">Choose your speed...</h2>
-                    <div class="speed-buttons">
-                        <button type="button" class="fast font-[inherit]">fast</button>
-                        <button type="button" class="faster">faster</button>
-                        <button type="button" class="fastest italic">fastest!</button>
-                    </div>
+        <div class="game-container mx-auto flex flex-col">
+            <!--start screen-->
+            <section id="start-screen" class="grow py-5">
+                <h2>Welcome to BlairSnake!<br>This is not your ordinary game of snake.</h2>
+                <img src="build/images/8bitsnake.gif" alt="8-bit snake" class="my-2">
+                
+                <h2>Choose your speed...</h2>
+                <div class="speed-buttons">
+                    <button type="button" class="fast" data-fps="10">fast</button>
+                    <button type="button" class="faster" data-fps="15">faster</button>
+                    <button type="button" class="fastest italic" data-fps="20">fastest!</button>
                 </div>
+            </section>
+            <!-- end start screen -->
 
-            </div>
-            <div class="p-10">
-                <h2><span class='space-bar'>-  Push Space Bar to start -</span><br>use arrow keys to navigate<br>eat the food<br>don't hit the walls or your tail!</h2>
-            </div>
-        </section>
+            <!--game screen-->
+            <section id="game-screen" class="grow flex flex-col">
+                <canvas id="myCanvas" class="block grow"></canvas>
+            </section>
+            <!-- end game screen -->
 
-        <!--game screen-->
-        <section id="game-screen">
-            <canvas id="myCanvas" class="block mx-auto game-container"></canvas>
-            <h2>Score: <span class="score">0</span></h2>
-            <div class= "p-10">
-                <h2>use arrow keys to navigate<br>eat the food<br>don't hit the walls or your tail!</h2>
-            </div>
-        </section>
-
-        <!--game over screen-->
-        <section id="game-over">
-            <div id="game-over-container" class="mx-auto game-container">
+            <!--game over screen-->
+            <section id="game-over" class="py-5 mx-auto">             
                 <h1 class="mt-0 text-5xl">You died.</h1>
                 <h2>You played ya'self.</h2>
-                <img src="build/images/dead_snake.gif" id='dead-snake' alt='dead snake'>
-                <h2 class='speed' class='emphasize'>choose your speed...</h2>
-                    <div class="speed-buttons">
-                        <button type='button' class='fast'>fast</button>
-                        <button type='button' class='faster'>faster</button>
-                        <button type='button' class ='fastest'>fastest!</button>
-                    </div>
-                    
-                <h2>- push space to play again! -</h2>
-                <h2>Score: <span class="score">0</span></h2>
-            </div>
-        </section>
+                <img src="build/images/dead_snake.gif" id="dead-snake" class="w-[100px] mt-[10px]" alt="dead snake">
+                <h2 class="speed">choose your speed...</h2>
+                <div class="speed-buttons block">
+                    <button type="button" class="fast mb-[5px]">fast</button>
+                    <button type="button" class="faster mb-[5px]">faster</button>
+                    <button type="button" class ="fastest mb-[5px]">fastest!</button>
+                </div>  
+            </section>
+            <!-- end game over screen -->
+        </div>
 
-        <div class="push"></div>
-        <div class="push"></div>
-        <div class="push"></div>
+        <div class="bottom-menu p-10">
+            <h2 class="score-wrapper hidden">Score: <span class="score">0</span></h2>
+            <h2 class="space-bar mb-0 inline-block animate-emphasize">-  Push Space Bar to start -</h2>
+            <h2 class="mb-0">use arrow keys to navigate</h2>
+            <h2 class="mb-0">eat the food</h2>
+            <h2 class="mb-0">don't hit the walls or your tail!</h2>
+        </div>
     </div>
 
     <!--footer-->
-    <div class="footer">
+    <div class="footer mx-auto mb-4 flex-shrink-0">
         built by <a href="https://github.com/blairdow/blair-snake">Blair Dowis</a>
-        <a class="twitter" href="https://www.twitter.com/blairdow"><i class="icon ion-social-twitter"></i></a>
     </div>
+
    
 
     <!--audio files  -->

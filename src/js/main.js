@@ -41,6 +41,7 @@ var score = 0
 var foodKind = 0
 
 //speed selector buttons
+var $speedButtons = $('.speed-buttons button')
 var $fast = $('.fast')
 var $faster = $('.faster')
 var $fastest = $('.fastest')
@@ -80,13 +81,16 @@ function eventListeners() {
         //must select speed (fps) before start
         if(fps > 0 && e.keyCode === 32) {
            score = 0
+           $('.space-bar').removeClass('animate-emphasize')
+           $('.space-bar').addClass('hidden')
+           $('.score-wrapper').removeClass('hidden')
            $startScreen.hide()
            $gameOver.hide()
            startSound()
            $gameScreen.fadeIn('slow')
         }
         else if(e.keyCode === 32) {
-            $('.speed').toggleClass('emphasize')
+            $('.speed').toggleClass('animate-ping')
         }
     })
     //arrow keys
@@ -134,17 +138,24 @@ function eventListeners() {
 }
 
 //***** starting speed selector
+let cssObj = {'color': '#eb00ff', 'text-shadow':'2px 2px aqua'}
 $($fast).on('click', function() {
-    fps = 10
-    $('.space-bar').css({'color': '#eb00ff', 'text-shadow':'2px 2px aqua'})
+    fps = $fast.data("fps")
+    $($speedButtons).removeClass('selected')
+    $(this).addClass('selected')
+    $('.space-bar').addClass('animate-emphasize')
 })
 $($faster).on('click', function() {
-    fps = 15
-    $('.space-bar').css({'color': '#eb00ff', 'text-shadow':'2px 2px aqua'})
+    fps = $faster.data("fps")
+    $($speedButtons).removeClass('selected')
+    $(this).addClass('selected')
+    $('.space-bar').addClass('animate-emphasize')
 })
 $($fastest).on('click', function () {
-    fps = 20
-    $('.space-bar').css({'color': '#eb00ff', 'text-shadow':'2px 2px aqua'})
+    fps = $fastest.data("fps")
+    $($speedButtons).removeClass('selected')
+    $(this).addClass('selected')
+    $('.space-bar').addClass('animate-emphasize')
 })
 
 //************set starting environment
@@ -181,6 +192,7 @@ function gameOverScreen() {
     setTimeout(function() {
         fps = 0
         $gameOver.fadeIn()
+        $('.space-bar').removeClass('hidden')
         snakeReset()
     }, 1000) 
 }

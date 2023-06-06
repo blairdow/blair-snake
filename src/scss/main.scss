@@ -7,100 +7,25 @@
         @apply m-0;
     }
     button {
-        @apply font-[inherit];
+        @apply font-[inherit] text-2xl leading-none bg-pink/75 border-dashed border-transparent border-1.5 rounded-md py-0.5 px-[5px] w-[100px] mt-2.5 transition duration-200 ease-out;
+    }
+    button:hover, button.selected {
+        @apply border-magenta;
     }
     .game-container {
-        @apply border-dashed border-2 border-[#eb00ff] bg-pink-light w-[480px] h-[320px] mt-5;
+        @apply border-dashed border-1.5 border-magenta bg-pink/[.67] w-[480px] h-[320px] mt-5;
+    }
+    a {
+        @apply text-magenta no-underline;
+    }
+    a:hover {
+        @apply underline;
     }
 }
 
-/*******text emphasis class for animation*********/
-@-webkit-keyframes aqua {
-    from {
-        text-shadow: 2px 2px aqua;
-        color: #eb00ff;            
-    }
-    to {text-shadow: none; color: black;}
+html, body {
+    height: 100%;
 }
-@keyframes aqua {
-    from {
-        text-shadow: 2px 2px aqua;
-        color: #eb00ff;            
-    }
-    to {text-shadow: none; color: black;}
-}
-.emphasize {
-    -webkit-animation-name: aqua;
-    animation-name: aqua;
-    -webkit-animation-duration: 5s;
-    animation-duration: 5s;
-}
-
-/*******speed button styles********/
-
-button {
-    font-size: 1.5em;
-    background-color: rgba(255, 213, 232, 0.74);
-    border-radius: 5px;
-    border: dashed rgba(235, 0, 255, 0);
-    padding: 2px 5px;
-    width: 100px;
-    margin-top: 10px;
-    -webkit-transition: 0.2s ease-out;
-    transition: 0.2s ease-out;
-}
-
-button:hover {
-  border-color: rgb(235, 0, 255);
-}
-
-/********game play screen styles********/
-
-#game-screen .directions {
-    padding-top: 35px;
-}
-
-/********game over screen styles******/
-
-#game-over h1 {
-    margin-top: 0px;
-}
-
-#game-over .speed-buttons {
-    display: block;
-}
-
-#game-over button {
-    margin-bottom: 5px;
-}
-
-#game-over .score {
-    margin-top: 10px;
-}
-
-#dead-snake {
-    width: 100px;
-    margin: 10px 0 0 0;
-}
-
-/***********footer styles**********/
-
-.footer {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 10px;
-}
-
-a {
-    text-decoration: none;
-    color: #eb00ff;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-.twitter {
-    color: #00aced;
+body {
+    margin: 0;
 }
