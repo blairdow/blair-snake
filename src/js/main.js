@@ -41,7 +41,8 @@ var score = 0
 var foodKind = 0
 
 //speed selector buttons
-var $speedButtons = $('.speed-buttons button')
+let speedButtons = document.querySelectorAll('.speed-buttons button');
+console.log('speed buttons', speedButtons)
 var $fast = $('.fast')
 var $faster = $('.faster')
 var $fastest = $('.fastest')
@@ -138,24 +139,17 @@ function eventListeners() {
 }
 
 //***** starting speed selector
-let cssObj = {'color': '#eb00ff', 'text-shadow':'2px 2px aqua'}
-$($fast).on('click', function() {
-    fps = $fast.data("fps")
-    $($speedButtons).removeClass('selected')
-    $(this).addClass('selected')
-    $('.space-bar').addClass('animate-emphasize')
-})
-$($faster).on('click', function() {
-    fps = $faster.data("fps")
-    $($speedButtons).removeClass('selected')
-    $(this).addClass('selected')
-    $('.space-bar').addClass('animate-emphasize')
-})
-$($fastest).on('click', function () {
-    fps = $fastest.data("fps")
-    $($speedButtons).removeClass('selected')
-    $(this).addClass('selected')
-    $('.space-bar').addClass('animate-emphasize')
+function setSpeed() {
+    console.log('this', this)
+    fps = this.dataset.fps
+    speedButtons.forEach(function(el) {
+        el.classList.remove('selected')
+    })
+    this.classList.add('selected')
+    document.querySelector('.space-bar').classList.add('animate-emphasize')
+}
+speedButtons.forEach(function(el) {
+    el.addEventListener('click', setSpeed);
 })
 
 //************set starting environment

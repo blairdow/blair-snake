@@ -43,9 +43,9 @@
                 <img src="build/images/dead_snake.gif" id="dead-snake" class="w-[100px] mt-[10px]" alt="dead snake">
                 <h2 class="speed">choose your speed...</h2>
                 <div class="speed-buttons block">
-                    <button type="button" class="fast mb-[5px]">fast</button>
-                    <button type="button" class="faster mb-[5px]">faster</button>
-                    <button type="button" class ="fastest mb-[5px]">fastest!</button>
+                    <button type="button" data-fps="10" class="fast mb-[5px]">fast</button>
+                    <button type="button" data-fps="15" class="faster mb-[5px]">faster</button>
+                    <button type="button" data-fps="20" class ="fastest italic mb-[5px]">fastest!</button>
                 </div>  
             </section>
             <!-- end game over screen -->
@@ -53,7 +53,7 @@
 
         <div class="bottom-menu p-10">
             <h2 class="score-wrapper hidden">Score: <span class="score">0</span></h2>
-            <h2 class="space-bar mb-0 inline-block animate-emphasize">-  Push Space Bar to start -</h2>
+            <h2 class="space-bar mb-0 inline-block">-  Push Space Bar to start -</h2>
             <h2 class="mb-0">use arrow keys to navigate</h2>
             <h2 class="mb-0">eat the food</h2>
             <h2 class="mb-0">don't hit the walls or your tail!</h2>
