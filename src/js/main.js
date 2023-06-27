@@ -1,147 +1,153 @@
 import sounds from './sounds'
 import images from './images'
 
-var $canvas = $('#myCanvas')[0]
-var $ctx = $canvas.getContext('2d')
+let canvas = document.getElementById('myCanvas')
+let ctx = canvas.getContext('2d')
 
 //******* starting snake position
-var snake = [[150,125],
+let snake = [[150,125],
              [150,130],
              [150,135],
              [150,140],
              [150,145]]
 
 //******** image elements
-var $burger = $('<img>', {
+function createImg(options) {
+    let img = document.createElement('img')
+    for (const key in options) {
+        if (options.hasOwnProperty(key)) {
+            img.setAttribute(key, options[key])
+        }
+    }
+    return img
+}
+let burger = createImg({
     id: 'burger',
     src: './build/images/chzburger.png',
     alt: 'burger'    
-})[0]
-
-var $cherries = $('<img>', {
+})
+let cherries = createImg({
     id: 'cherries',
     src: './build/images/cherries.png',
     alt: 'cherries'
-})[0]
-
-var $pizza = $('<img>', {
+})
+let pizza = createImg({
     id: 'pizza',
     src: './build/images/pizza.png',
     alt: 'pizza'
-})[0]
+})
 
-
-var directionX = 0
-var directionY = 0
-var snakeHeadX = snake[0][0]
-var snakeHeadY = snake[0][1]
-var foodX = 0   
-var foodY = 0
-var score = 0
-var foodKind = 0
+let directionX = 0
+let directionY = 0
+let snakeHeadX = snake[0][0]
+let snakeHeadY = snake[0][1]
+let foodX = 0   
+let foodY = 0
+let score = 0
+let foodKind = 0
 
 //speed selector buttons
 let speedButtons = document.querySelectorAll('.speed-buttons button');
-console.log('speed buttons', speedButtons)
-var $fast = $('.fast')
-var $faster = $('.faster')
-var $fastest = $('.fastest')
+let spaceBar = document.querySelector('.space-bar')
 
 //sounds
-var startSound = function() {
-    document.querySelector('#start').volume = 0.3
-    document.querySelector('#start').play()
+function startSound() {
+    document.getElementById('start').volume = 0.3
+    document.getElementById('start').play()
 }
-var foodSound = function() {
-    document.querySelector('#food').volume = 0.3
-    document.querySelector('#food').play()
+function foodSound() {
+    document.getElementById('food').volume = 0.3
+    document.getElementById('food').play()
 }
-var deathSound = function() {
-    document.querySelector('#death').volume = 0.3
-    document.querySelector('#death').play()
+function deathSound() {
+    document.getElementById('death').volume = 0.3
+    document.getElementById('death').play()
 }
 
 //starting framerate - selected with buttons
-var fps = 0
+let fps = 0
 
 //screen modes
-var $startScreen = $('#start-screen')
-var $gameScreen = $('#game-screen')
-var $gameOver = $('#game-over')
+let startScreen = document.getElementById('start-screen')
+let gameScreen = document.getElementById('game-screen')
+let gameoverScreen = document.getElementById('game-over')
 
 //vars to detect key presses
-var rightPressed = false
-var leftPressed = false
-var upPressed = false
-var downPressed = false
+let keyPressTracker = {
+    right: false,
+    left: false,
+    up: false,
+    down: false
+}
 
 //keys to control snakey and space to start
 function eventListeners() {
     //space bar to start game
-    $(document).on('keydown', function(e) {
+    document.addEventListener('keydown', function(e) {
+        console.log('event', e)
         //must select speed (fps) before start
         if(fps > 0 && e.keyCode === 32) {
-           score = 0
-           $('.space-bar').removeClass('animate-emphasize')
-           $('.space-bar').addClass('hidden')
-           $('.score-wrapper').removeClass('hidden')
-           $startScreen.hide()
-           $gameOver.hide()
-           startSound()
-           $gameScreen.fadeIn('slow')
+            score = 0
+            spaceBar.classList.replace('animate-emphasize', 'hidden')
+            document.querySelector('.score-wrapper').classList.remove('hidden')
+            startSound()
+            startScreen.classList.add('hidden')
+            gameScreen.classList.replace('hidden', 'flex')
+            gameScreen.classList.remove('opacity-0')
         }
         else if(e.keyCode === 32) {
-            $('.speed').toggleClass('animate-ping')
+            document.querySelector('.speed').classList.toggle('animate-emphasize')
         }
     })
     //arrow keys
-    $(document).on('keydown', function(e) {
-        if(e.keyCode === 38 && !downPressed) {
+    document.addEventListener('keydown', function(e) {
+        if(e.keyCode === 38 && !keyPressTracker.down) {
             //up
-            upPressed = true
+            keyPressTracker.up = true
             directionX = 0
             directionY = -5
-
-            leftPressed = false
-            rightPressed = false
-            downPressed = false
+    
+            keyPressTracker.left = false
+            keyPressTracker.right = false
+            keyPressTracker.down = false
         }
-        if(e.keyCode === 40 && !upPressed) {
+        if(e.keyCode === 40 && !keyPressTracker.up) {
             //down
-            downPressed = true
+            keyPressTracker.down = true
             directionX = 0
             directionY = 5
-
-            upPressed = false
-            rightPressed = false
-            leftPressed = false
+    
+            keyPressTracker.up = false
+            keyPressTracker.right = false
+            keyPressTracker.left = false
         }
-        if(e.keyCode === 37 && !rightPressed) {
+        if(e.keyCode === 37 && !keyPressTracker.right) {
             //left
-            leftPressed = true
+            keyPressTracker.left = true
             directionX = -5
             directionY = 0
-
-            rightPressed = false
-            downPressed = false
-            upPressed = false
+    
+            keyPressTracker.right = false
+            keyPressTracker.down = false
+            keyPressTracker.up = false
         }
-        if(e.keyCode === 39 && !leftPressed) {
-            rightPressed = true
+        if(e.keyCode === 39 && !keyPressTracker.left) {
+            keyPressTracker.right = true
             directionX = 5
             directionY = 0
-
-            leftPressed = false
-            upPressed = false
-            downPressed = false
+    
+            keyPressTracker.left = false
+            keyPressTracker.up = false
+            keyPressTracker.down = false
         }
+
     })
 }
 
 //***** starting speed selector
 function setSpeed() {
     console.log('this', this)
-    fps = this.dataset.fps
+    fps = Number(this.dataset.fps)
     speedButtons.forEach(function(el) {
         el.classList.remove('selected')
     })
@@ -153,13 +159,11 @@ speedButtons.forEach(function(el) {
 })
 
 //************set starting environment
-$gameScreen.hide()
-$gameOver.hide()
 eventListeners()
 
 function displayScore() {
-    var $score = $('.score')
-    $score.text(score)
+    let scoreElement = document.querySelector('.score')
+    // score.textContent = score
 }
 
 //increase speed when score is 5, 10, 15, etc
@@ -176,17 +180,21 @@ function snakeReset () {
              [150,135],
              [150,140],
              [150,145]]
-    }
+}
 
 //runs if snake hits self or walls
-function gameOverScreen() {
-    $gameScreen.fadeOut('slow')
+function showGameOverScreen() {
+    ////////to do make fade in and out tailwind animation
+    // $gameScreen.fadeOut('slow')
+    gameScreen.classList.add('hidden')
+    gameScreen.classList.add('opacity-0')
     deathSound()
-    $ctx.clearRect(0, 0, $canvas.width, $canvas.height)
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
     setTimeout(function() {
         fps = 0
-        $gameOver.fadeIn()
-        $('.space-bar').removeClass('hidden')
+        gameoverScreen.classList.remove('hidden')
+        gameoverScreen.classList.remove('opacity-0')
+        spaceBar.classList.remove('hidden')
         snakeReset()
     }, 1000) 
 }
@@ -197,8 +205,8 @@ function randomizeFood() {
     function rand_5(min, max){
         return Math.round((Math.random()*(max-min)+min)/5)*5;
     }
-    var x = rand_5(0, $canvas.width-5)
-    var y = rand_5(0, $canvas.height-5)
+    var x = rand_5(0, canvas.width-5)
+    var y = rand_5(0, canvas.height-5)
     //check if x or y are in snake area
     var duplicate = false
     for(var i = 0; i < snake.length; i++) {
@@ -207,13 +215,11 @@ function randomizeFood() {
     }
     
     if (duplicate) {
-        console.log('recursion', duplicate)
         return randomizeFood()
     } 
     else {
         foodX = x
         foodY = y
-        console.log(foodX, foodY)
     }
 }
 
@@ -228,16 +234,16 @@ pickFood()
 
 function drawFood() {
     if(foodKind == 1) {
-        $ctx.clearRect(0, 0, $canvas.width, $canvas.height)
-        $ctx.drawImage($pizza, foodX, foodY, 5, 5)  
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+        ctx.drawImage(pizza, foodX, foodY, 5, 5)  
     }
     else if(foodKind == 2) {
-        $ctx.clearRect(0, 0, $canvas.width, $canvas.height)
-        $ctx.drawImage($burger, foodX, foodY, 5, 5) 
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+        ctx.drawImage(burger, foodX, foodY, 5, 5) 
     }
     else {
-        $ctx.clearRect(0, 0, $canvas.width, $canvas.height)
-        $ctx.drawImage($cherries, foodX, foodY, 5, 5) 
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+        ctx.drawImage(cherries, foodX, foodY, 5, 5) 
     } 
  }
 
@@ -251,12 +257,12 @@ function eatFood() {
         
         var length = snake.length
         //if moving horizontally add length to x-axis
-        if(leftPressed || rightPressed) {
+        if(keyPressTracker.left || keyPressTracker.right) {
             snake.unshift([foodX, foodY])
             snake.push([snake[length-1][0], snake[length-1][1]], [snake[length-1][0]+5, snake[length-1][1]])
         }              
         //if moving vertically add length to y-axis
-        if(upPressed || downPressed)        
+        if(keyPressTracker.up || keyPressTracker.down)        
             {snake.unshift([foodX, foodY])
             snake.push([snake[length-1][0], snake[length-1][1]], [snake[length-1][0], snake[length-1][1]+5])}        
         //reset food type and location
@@ -266,25 +272,26 @@ function eatFood() {
 }
 
 function hitWalls() {
+    ///to do move all game over resets including snake reset together
     //ends game if walls are hit
-    if(snakeHeadX + directionX < 0 || snakeHeadX + directionX > $canvas.width - 5) {
-        rightPressed = false
-        leftPressed = false
-        upPressed = false
-        downPressed = false
+    if(snakeHeadX + directionX < 0 || snakeHeadX + directionX > canvas.width - 5) {
+        keyPressTracker.right = false
+        keyPressTracker.left = false
+        keyPressTracker.up = false
+        keyPressTracker.down = false
         directionX = 0
         directionY = 0
-        gameOverScreen()
+        showGameOverScreen()
 
     }
-    if(snakeHeadY + directionY < 0 || snakeHeadY + directionY > $canvas.height - 5) {
-        gameOverScreen()
-        rightPressed = false
-        leftPressed = false
-        upPressed = false
-        downPressed = false
+    if(snakeHeadY + directionY < 0 || snakeHeadY + directionY > canvas.height - 5) {
+        keyPressTracker.right = false
+        keyPressTracker.left = false
+        keyPressTracker.up = false
+        keyPressTracker.down = false
         directionX = 0
         directionY = 0
+        showGameOverScreen()
     }
 }
 
@@ -292,11 +299,11 @@ function hitWalls() {
 function hitSelf() {
     for(var a = 1; a < snake.length; a++) {
         if(snake[a][0] === snakeHeadX && snake[a][1] === snakeHeadY) {
-            gameOverScreen()
-            rightPressed = false
-            leftPressed = false
-            upPressed = false
-            downPressed = false
+            showGameOverScreen()
+            keyPressTracker.right = false
+            keyPressTracker.left = false
+            keyPressTracker.up = false
+            keyPressTracker.down = false
             directionX = 0
             directionY = 0
        }
@@ -305,19 +312,19 @@ function hitSelf() {
 
 //simulates movement by changing snake array coordinates
 function moveSnake() {
-    if(rightPressed) {
+    if(keyPressTracker.right) {
         snake.pop()
         snake.unshift([snakeHeadX + directionX, snakeHeadY])
     }
-    if(leftPressed) {
+    if(keyPressTracker.left) {
         snake.pop()
         snake.unshift([snakeHeadX + directionX, snakeHeadY])
     }
-    if(upPressed) {
+    if(keyPressTracker.up) {
         snake.pop()
         snake.unshift([snakeHeadX, snakeHeadY + directionY])
     }
-    if(downPressed) {
+    if(keyPressTracker.down) {
         snake.pop()
         snake.unshift([snakeHeadX, snakeHeadY + directionY])
     }
@@ -327,13 +334,13 @@ function moveSnake() {
 
 //function given to snake in draw function
 function drawSnake([n,m]) { 
-    $ctx.beginPath()
-    $ctx.rect(n,m,5,5)
-    $ctx.fillStyle = '#00ff00'
-    $ctx.fill()
-    $ctx.strokeStyle = "#009300"
-    $ctx.stroke()
-    $ctx.closePath()
+    ctx.beginPath()
+    ctx.rect(n,m,5,5)
+    ctx.fillStyle = '#00ff00'
+    ctx.fill()
+    ctx.strokeStyle = "#009300"
+    ctx.stroke()
+    ctx.closePath()
 }
 
 //animation!

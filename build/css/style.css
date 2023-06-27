@@ -258,50 +258,6 @@
       -ms-flex-positive: 1;
           flex-grow: 1;
 }
-@-webkit-keyframes scale-color {
-  0% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-    color: #eb00ff;
-    text-shadow: 2px 2px aqua;
-  }
-  50% {
-    -webkit-transform: scale(1.1);
-            transform: scale(1.1);
-    color: #eb00ff;
-    text-shadow: 2px 2px aqua;
-  }
-  100% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-    color: #eb00ff;
-    text-shadow: 2px 2px aqua;
-  }
-}
-@keyframes scale-color {
-  0% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-    color: #eb00ff;
-    text-shadow: 2px 2px aqua;
-  }
-  50% {
-    -webkit-transform: scale(1.1);
-            transform: scale(1.1);
-    color: #eb00ff;
-    text-shadow: 2px 2px aqua;
-  }
-  100% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-    color: #eb00ff;
-    text-shadow: 2px 2px aqua;
-  }
-}
-.animate-emphasize {
-  -webkit-animation: scale-color 1s infinite ease forwards;
-          animation: scale-color 1s infinite ease forwards;
-}
 .flex-col {
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
@@ -341,6 +297,9 @@
 .italic {
   font-style: italic;
 }
+.opacity-0 {
+  opacity: 0;
+}
 .shadow {
   --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
@@ -356,10 +315,32 @@
   -webkit-filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
           filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
+.transition-opacity {
+  -webkit-transition-property: opacity;
+  -o-transition-property: opacity;
+  transition-property: opacity;
+  -webkit-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+       -o-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+          transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-transition-duration: 150ms;
+       -o-transition-duration: 150ms;
+          transition-duration: 150ms;
+}
+.duration-1000 {
+  -webkit-transition-duration: 1000ms;
+       -o-transition-duration: 1000ms;
+          transition-duration: 1000ms;
+}
 html, body {
   height: 100%;
 }
 
 body {
   margin: 0;
+}
+
+.fade-in {
+  -webkit-transition: opacity 1500ms;
+  -o-transition: opacity 1500ms;
+  transition: opacity 1500ms;
 }

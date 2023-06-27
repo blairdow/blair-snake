@@ -31,13 +31,13 @@
             <!-- end start screen -->
 
             <!--game screen-->
-            <section id="game-screen" class="grow flex flex-col">
+            <section id="game-screen" class="grow flex-col flex opacity-0 transition-opacity duration-1000">
                 <canvas id="myCanvas" class="block grow"></canvas>
             </section>
             <!-- end game screen -->
 
             <!--game over screen-->
-            <section id="game-over" class="py-5 mx-auto">             
+            <section id="game-over" class="py-5 mx-auto  opacity-0 transition-opacity duration-1000 hidden">             
                 <h1 class="mt-0 text-5xl">You died.</h1>
                 <h2>You played ya'self.</h2>
                 <img src="build/images/dead_snake.gif" id="dead-snake" class="w-[100px] mt-[10px]" alt="dead snake">
