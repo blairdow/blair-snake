@@ -15,40 +15,54 @@
 <body class="bg-sky bg-fixed bg-[size:auto_100%] bg-[color:#73e0ff] text-center font-VT323 flex flex-col">
     <div class="wrapper flex-grow flex-shrink-0">
         <h1 class="mt-5 mb-0 text-5xl">BlairSnake</h1>
-        <div class="game-container mx-auto flex flex-col">
-            <!--start screen-->
-            <section id="start-screen" class="grow py-5">
-                <h2>Welcome to BlairSnake!<br>This is not your ordinary game of snake.</h2>
-                <img src="build/images/8bitsnake.gif" alt="8-bit snake" class="my-2">
-                
-                <h2>Choose your speed...</h2>
-                <div class="speed-buttons">
-                    <button type="button" class="fast" data-fps="10">fast</button>
-                    <button type="button" class="faster" data-fps="15">faster</button>
-                    <button type="button" class="fastest italic" data-fps="20">fastest!</button>
+        <div class="flex flex-row mt-5">
+            <section id="high-scores" class="flex-1 flex flex-col items-center">
+                <div class="px-8 py-5 text-left">
+                    <h2>Your High Scores</h2>
+                    <ol class="">
+                        <li>10</li>
+                        <li>20</li>
+                        <li>20</li>
+                        <li>20</li>
+                        <li>20</li>
+                        <li>20</li>
+                    </ol>
                 </div>
             </section>
-            <!-- end start screen -->
-
-            <!--game screen-->
-            <section id="game-screen" class="grow flex-col flex opacity-0 transition-opacity duration-1000">
-                <canvas id="myCanvas" class="block grow"></canvas>
-            </section>
-            <!-- end game screen -->
-
-            <!--game over screen-->
-            <section id="game-over" class="py-5 mx-auto  opacity-0 transition-opacity duration-1000 hidden">             
-                <h1 class="mt-0 text-5xl">You died.</h1>
-                <h2>You played ya'self.</h2>
-                <img src="build/images/dead_snake.gif" id="dead-snake" class="w-[100px] mt-[10px]" alt="dead snake">
-                <h2 class="speed">choose your speed...</h2>
-                <div class="speed-buttons block">
-                    <button type="button" data-fps="10" class="fast mb-[5px]">fast</button>
-                    <button type="button" data-fps="15" class="faster mb-[5px]">faster</button>
-                    <button type="button" data-fps="20" class ="fastest italic mb-[5px]">fastest!</button>
-                </div>  
-            </section>
-            <!-- end game over screen -->
+            <div class="game-container mx-auto flex-shrink-0 basis-[480px] flex flex-col">
+                <!--start screen-->
+                <section id="start-screen" class="grow py-5">
+                    <h2>Welcome to BlairSnake!<br>This is not your ordinary game of snake.</h2>
+                    <img src="build/images/8bitsnake.gif" alt="8-bit snake" class="my-2">
+            
+                    <h2>Choose your speed...</h2>
+                    <div class="speed-buttons">
+                        <button type="button" class="fast" data-fps="10">fast</button>
+                        <button type="button" class="faster" data-fps="15">faster</button>
+                        <button type="button" class="fastest italic" data-fps="20">fastest!</button>
+                    </div>
+                </section>
+                <!-- end start screen -->
+                <!--game screen-->
+                <section id="game-screen" class="hidden grow flex-col animate-fade-in">
+                    <canvas id="myCanvas" class="block grow"></canvas>
+                </section>
+                <!-- end game screen -->
+                <!--game over screen-->
+                <section id="game-over" class="py-5 mx-auto hidden animate-fade-in">
+                    <h1 class="mt-0 text-5xl">You died.</h1>
+                    <h2>You played ya'self.</h2>
+                    <img src="build/images/dead_snake.gif" id="dead-snake" class="w-[100px] mt-[10px]" alt="dead snake">
+                    <h2 class="speed">choose your speed...</h2>
+                    <div class="speed-buttons block">
+                        <button type="button" data-fps="10" class="fast mb-[5px]">fast</button>
+                        <button type="button" data-fps="15" class="faster mb-[5px]">faster</button>
+                        <button type="button" data-fps="20" class ="fastest italic mb-[5px]">fastest!</button>
+                    </div>
+                </section>
+                <!-- end game over screen -->
+            </div>
+            <div class="flex-1"></div>
         </div>
 
         <div class="bottom-menu p-10">

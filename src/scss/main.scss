@@ -13,7 +13,7 @@
         @apply border-magenta;
     }
     .game-container {
-        @apply border-dashed border-1.5 border-magenta bg-pink/[.67] w-[480px] h-[320px] mt-5;
+        @apply border-dashed border-1.5 border-magenta bg-pink/[.67] w-[480px] h-[320px];
     }
     a {
         @apply text-magenta no-underline;

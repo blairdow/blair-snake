@@ -1,17 +1,14 @@
 const colors = require('tailwindcss/colors')
+const plugin = require('tailwindcss/plugin')
 
 module.exports = {
   content: [
-    "./**/*.html"
+    "./**/*.html",
+    "./src/**/main.js"
   ],
   corePlugins: {
     preflight: false,
   },
-  darkMode: false, // or 'media' or 'class'
-  safeList: [
-    'animate-ping',
-    'animate-emphasize'
-  ],
   theme: {
     backgroundSize: {
       'auto': 'auto',
@@ -30,7 +27,9 @@ module.exports = {
     },
     extend: {
       animation: {
-        'emphasize': 'scale-color 1s infinite ease forwards',
+        'emphasize': 'scale-color 1s infinite ease',
+        'fade-in': 'fade-in 1s',
+        'fade-out': 'fade-out 1s forwards'
       },
       backgroundImage: theme => ({
         'sky': "url('/build/images/sky-background.png')"
@@ -53,22 +52,23 @@ module.exports = {
       fontFamily: {
         'VT323': ['VT323', 'mono']
       },
+      justifySelf: {
+        'left': 'left'
+      },
       keyframes: {
-        aqua: {
-          from: { 'text-shadow': 'none', color: 'black', transform: 'scale(1.5)' },
-          to: { 'text-shadow': '2px 2px aqua', color: '#eb00ff', transform: 'scale(1.5)' }
+        'fade-in': {
+          from: { 'opacity': 0 },
+          to: { 'opacity': 1 }
+        },
+        'fade-out': {
+          from: { 'opacity': 1 },
+          to: { 'opacity': 0 }
         },
         'scale-color': {
           '0%': {'transform': 'scale(1)', 'color': '#eb00ff', 'text-shadow':'2px 2px aqua'},
           '50%': {'transform': 'scale(1.1)', 'color': '#eb00ff', 'text-shadow':'2px 2px aqua'},
           '100%': {'transform': 'scale(1)', 'color': '#eb00ff', 'text-shadow':'2px 2px aqua'}
         },
-        rotateOut: {
-          '0%': { transform: 'rotateY(0)' },
-          '20%': { transform: 'rotateY(-10deg) scale(1)' },
-          '50%': { transform: 'scale(1.05)'},
-          '100%': { transform: 'rotateY(90deg)' },
-        }
       },
     }
   },
