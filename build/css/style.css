@@ -197,6 +197,24 @@
   --tw-backdrop-saturate:  ;
   --tw-backdrop-sepia:  ;
 }
+.absolute {
+  position: absolute;
+}
+.relative {
+  position: relative;
+}
+.bottom-0 {
+  bottom: 0px;
+}
+.left-0 {
+  left: 0px;
+}
+.right-0 {
+  right: 0px;
+}
+.top-0 {
+  top: 0px;
+}
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -367,9 +385,20 @@
       -ms-flex-align: center;
           align-items: center;
 }
+.justify-center {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
 .bg-\[color\:\#73e0ff\] {
   --tw-bg-opacity: 1;
   background-color: rgb(115 224 255 / var(--tw-bg-opacity));
+}
+.bg-pink\/\[\.67\] {
+  background-color: rgb(255 213 232 / .67);
+}
+.bg-white\/\[\.67\] {
+  background-color: rgb(255 255 255 / .67);
 }
 .bg-sky {
   background-image: url(../images/sky-background.png);

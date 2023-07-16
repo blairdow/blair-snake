@@ -19,13 +19,12 @@
             <section id="high-scores" class="flex-1 flex flex-col items-center">
                 <div class="px-8 py-5 text-left">
                     <h2>Your High Scores</h2>
-                    <ol class="">
-                        <li>10</li>
-                        <li>20</li>
-                        <li>20</li>
-                        <li>20</li>
-                        <li>20</li>
-                        <li>20</li>
+                    <ol id="leaderboard">
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
                     </ol>
                 </div>
             </section>
@@ -44,12 +43,15 @@
                 </section>
                 <!-- end start screen -->
                 <!--game screen-->
-                <section id="game-screen" class="hidden grow flex-col animate-fade-in">
+                <section id="game-screen" class="relative hidden grow flex-col animate-fade-in">
+                    <div id="pause-screen" class="grow absolute top-0 left-0 right-0 bottom-0 bg-pink/[.67] flex items-center justify-center hidden">
+                        <h2>-- Paused --</h2>
+                    </div>
                     <canvas id="myCanvas" class="block grow"></canvas>
                 </section>
                 <!-- end game screen -->
                 <!--game over screen-->
-                <section id="game-over" class="py-5 mx-auto hidden animate-fade-in">
+                <section id="game-over-screen" class="py-5 mx-auto hidden animate-fade-in">
                     <h1 class="mt-0 text-5xl">You died.</h1>
                     <h2>You played ya'self.</h2>
                     <img src="build/images/dead_snake.gif" id="dead-snake" class="w-[100px] mt-[10px]" alt="dead snake">
@@ -69,6 +71,7 @@
             <h2 class="score-wrapper hidden">Score: <span class="score">0</span></h2>
             <h2 class="space-bar mb-0 inline-block">-  Push Space Bar to start -</h2>
             <h2 class="mb-0">use arrow keys to navigate</h2>
+            <h2 class="mb-0">use "P" key to pause/unpause</h2>
             <h2 class="mb-0">eat the food</h2>
             <h2 class="mb-0">don't hit the walls or your tail!</h2>
         </div>

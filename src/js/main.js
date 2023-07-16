@@ -1,6 +1,6 @@
 import sounds from './sounds'
 import images from './images'
-import { isMobileDevice, createImg, playStartSound, playFoodSound, playDeathSound, updateScore, increaseSpeed, rand5, pickFood, gameReset } from './utilities';
+import { isMobileDevice, createImg, playStartSound, playFoodSound, playDeathSound, displayScore, increaseSpeed, rand5, pickFood, gameReset } from './utilities';
 
 //canvas elements
 let canvas = document.getElementById('myCanvas')
@@ -10,13 +10,13 @@ let ctx = canvas.getContext('2d')
 let isMobile = isMobileDevice();
 let startScreen = document.getElementById('start-screen')
 let gameScreen = document.getElementById('game-screen')
-let gameoverScreen = document.getElementById('game-over')
+let gameoverScreen = document.getElementById('game-over-screen')
+let pauseScreen = document.getElementById('pause-screen')
 
-let animationReference;
-
-//speed/start buttons
+//game elements
 let speedButtons = document.querySelectorAll('.speed-buttons button');
 let spaceBar = document.querySelector('.space-bar')
+let leaderboard = document.getElementById('leaderboard')
 
 //food image elements
 let burger = createImg({
@@ -36,15 +36,13 @@ let pizza = createImg({
 })
 
 let score = 0;
-let highScores = JSON.parse(localStorage.getItem("highScores"))
+let highScores = JSON.parse(localStorage.getItem("highScores")) //check local storage for existing high scores
 if(highScores == null) {
     //set empty array if no scores
     highScores = []
     localStorage.setItem("highScores", JSON.stringify(highScores))
-} else {
-    // highScores = JSON.parse(highScores)
-}
-console.log(highScores)
+} 
+displayHighScores()
 
 let gameTracker = {
     snake: [[150,125], //starting snake position
@@ -66,7 +64,8 @@ let gameTracker = {
         up: false,
         down: false
     },
-    gameover: false //used to stop animation
+    gameover: false, //used to stop animation
+    paused: false
 }
 
 //FUNCTIONS
@@ -77,6 +76,7 @@ function keyboardEventListeners() {
         //must select speed (fps) before start
         if(gameTracker.fps > 0 && e.code === "Space") {
             score = 0
+            displayScore(score)
             spaceBar.classList.replace('animate-emphasize', 'hidden')
             document.querySelector('.score-wrapper').classList.remove('hidden')
             startGame()
@@ -84,6 +84,13 @@ function keyboardEventListeners() {
         }
         else if(e.code === "space") {
             document.querySelector('.speed').classList.toggle('animate-emphasize')
+        }
+    })
+
+    //P to pause
+    document.addEventListener('keydown', function(e) {
+        if(e.code === "KeyP") {
+            togglePause()
         }
     })
 
@@ -142,6 +149,29 @@ function setSpeed() {
     document.querySelector('.space-bar').classList.add('animate-emphasize')
 }
 
+function displayHighScores() {
+    if(highScores.length > 0) {
+        leaderboard.innerHTML = "";
+        highScores.map(el => {
+            let listItem = document.createElement('li')
+            listItem.textContent = el
+            leaderboard.append(listItem)
+        })
+    }
+}
+
+function setHighScores(score) {
+    if(score > 0 && highScores.indexOf(score) < 0) {
+        highScores.push(score)
+        highScores.sort((a, b) => b - a)
+        if(highScores.length > 10) {
+            highScores.length = 10
+        }
+        localStorage.setItem("highScores", JSON.stringify(highScores))
+        displayHighScores()
+    }
+}
+
 function startGame() {
     playStartSound()
     startScreen.classList.add('hidden')
@@ -161,11 +191,12 @@ function endGame() {
     gameTracker.directionX = 0
     gameTracker.directionY = 0
     gameTracker.fps = 0
-    highScores.push(score)
-    localStorage.setItem("highScores", JSON.stringify(highScores))
+
+    setHighScores(score)
+    playDeathSound()
+
     gameScreen.classList.remove('animate-fade-in')
     gameScreen.classList.add('animate-fade-out')
-    playDeathSound()
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     setTimeout(() => {
         gameScreen.classList.replace('flex', 'hidden')
@@ -173,6 +204,17 @@ function endGame() {
         spaceBar.classList.remove('hidden')
         gameTracker = gameReset();
     }, 1000);
+}
+
+function togglePause() {
+    if(!gameTracker.paused) {
+        gameTracker.paused = true
+        pauseScreen.classList.remove('hidden')
+    } else {
+        gameTracker.paused = false
+        pauseScreen.classList.add('hidden')
+        drawGame() //restart animation
+    }
 }
 
 //function to randomize food spawn in units of 5
@@ -197,7 +239,6 @@ function randomizeFood() {
 }
 
 function drawFood() {
-    // console.log('draw food')
     if(gameTracker.foodKind == 1) {
         ctx.clearRect(0, 0, canvas.width, canvas.height)
         ctx.drawImage(pizza, gameTracker.foodX, gameTracker.foodY, 5, 5)  
@@ -218,7 +259,7 @@ function eatFood() {
     if(gameTracker.foodX === gameTracker.snakeHeadX && gameTracker.foodY === gameTracker.snakeHeadY) {
         playFoodSound()
         score++
-        updateScore(score)
+        displayScore(score)
         if(score%5 === 0) {
             gameTracker.fps = increaseSpeed(gameTracker.fps)
         }
@@ -297,17 +338,15 @@ function setHighScore(score) {
 
 //animation!
 function drawGame() {
-    if(gameTracker.gameover) {return;} 
-    setTimeout(function () {
-        //do not change order of functions!
+    if(gameTracker.gameover || gameTracker.paused) {return;} 
+    setTimeout(function () { //setTimeout used with requestAnimationFrame to control speed of animation
         hitWalls()
         hitSelf()
         drawFood()
         eatFood()
         moveSnake()
         gameTracker.snake.forEach(drawSnake) 
-        animationReference = requestAnimationFrame(drawGame)
-        console.log('ani', animationReference)
+        requestAnimationFrame(drawGame)
     }, 1000/gameTracker.fps)
 }
 

@@ -40,7 +40,7 @@ const playDeathSound = () => {
     document.getElementById('death').play()
 }
 
-const updateScore = (score) => {
+const displayScore = (score) => {
   let scoreElement = document.querySelector('.score')
   scoreElement.textContent = score
 }
@@ -93,4 +93,4 @@ const gameReset = () => {
   return initialValues;
 }
 
-export { isMobileDevice, createImg, playStartSound, playFoodSound, playDeathSound, updateScore, increaseSpeed, snakeReset, rand5, pickFood, gameReset }
+export { isMobileDevice, createImg, playStartSound, playFoodSound, playDeathSound, displayScore, increaseSpeed, snakeReset, rand5, pickFood, gameReset }
