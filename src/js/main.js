@@ -1,17 +1,22 @@
 import sounds from './sounds'
 import images from './images'
-import { isMobileDevice, createImg, playStartSound, playFoodSound, playDeathSound, displayScore, increaseSpeed, rand5, pickFood, gameReset } from './utilities';
+import { isMobileDevice, createImg, playStartSound, playFoodSound, playDeathSound, displayScore, increaseSpeed, randNum, pickFood, gameReset } from './utilities';
 
-//canvas elements
-let canvas = document.getElementById('myCanvas')
-let ctx = canvas.getContext('2d')
 
 //screen modes
-let isMobile = isMobileDevice();
 let startScreen = document.getElementById('start-screen')
 let gameScreen = document.getElementById('game-screen')
 let gameoverScreen = document.getElementById('game-over-screen')
 let pauseScreen = document.getElementById('pause-screen')
+let gameContainer = document.getElementById('game-container')
+let wrapper = document.querySelector('.wrapper')
+
+//game unit size (sets base for size of snake and food in pixels square)
+let basePixelUnit = 10
+
+//canvas elements
+let canvas = document.getElementById('myCanvas')
+let ctx = canvas.getContext('2d')
 
 //game elements
 let speedButtons = document.querySelectorAll('.speed-buttons button');
@@ -45,16 +50,16 @@ if(highScores == null) {
 displayHighScores()
 
 let gameTracker = {
-    snake: [[150,125], //starting snake position
-             [150,130],
-             [150,135],
-             [150,140],
-             [150,145]],
+    snake: [[canvas.width/2, canvas.height-(basePixelUnit*5)], //starting snake position
+             [canvas.width/2, canvas.height-(basePixelUnit*4)],
+             [canvas.width/2, canvas.height-(basePixelUnit*3)],
+             [canvas.width/2, canvas.height-(basePixelUnit*2)],
+             [canvas.width/2, canvas.height-basePixelUnit]],
     fps: 0, //starting framerate - selected with buttons
     directionX: 0,
     directionY: 0,
-    snakeHeadX: 150,
-    snakeHeadY: 125,
+    snakeHeadX: canvas.width/2,
+    snakeHeadY: canvas.height-(basePixelUnit*5),
     foodX: 0,   
     foodY: 0,
     foodKind: 0,
@@ -70,7 +75,14 @@ let gameTracker = {
 
 //FUNCTIONS
 //keys to control snakey and space to start
-function keyboardEventListeners() {
+function eventListeners() {
+    //set canvas size
+    window.addEventListener('resize', function() {
+
+        setCanvasSize(canvas)
+        console.log('resize', gameContainer.clientWidth, gameContainer.clientHeight)
+    }, true);
+
     //space bar to start game
     document.addEventListener('keydown', function(e) {
         //must select speed (fps) before start
@@ -100,7 +112,7 @@ function keyboardEventListeners() {
             //up
             gameTracker.keyPress.up = true
             gameTracker.directionX = 0
-            gameTracker.directionY = -5
+            gameTracker.directionY = -basePixelUnit
     
             gameTracker.keyPress.left = false
             gameTracker.keyPress.right = false
@@ -110,7 +122,7 @@ function keyboardEventListeners() {
             //down
             gameTracker.keyPress.down = true
             gameTracker.directionX = 0
-            gameTracker.directionY = 5
+            gameTracker.directionY = basePixelUnit
     
             gameTracker.keyPress.up = false
             gameTracker.keyPress.right = false
@@ -119,7 +131,7 @@ function keyboardEventListeners() {
         if(e.code === "ArrowLeft" && !gameTracker.keyPress.right) {
             //left
             gameTracker.keyPress.left = true
-            gameTracker.directionX = -5
+            gameTracker.directionX = -basePixelUnit
             gameTracker.directionY = 0
     
             gameTracker.keyPress.right = false
@@ -129,7 +141,7 @@ function keyboardEventListeners() {
         if(e.code === "ArrowRight" && !gameTracker.keyPress.left) {
             //right
             gameTracker.keyPress.right = true
-            gameTracker.directionX = 5
+            gameTracker.directionX = basePixelUnit
             gameTracker.directionY = 0
     
             gameTracker.keyPress.left = false
@@ -137,6 +149,21 @@ function keyboardEventListeners() {
             gameTracker.keyPress.down = false
         }
     })
+}
+
+function setCanvasSize(canvas) {
+    if(!isMobileDevice()) {
+        canvas.width = 480;
+        canvas.height = 320;
+    } else {
+        canvas.width = Math.floor((wrapper.clientWidth) / 10) * 10;
+        console.log('gamecontainer width', wrapper.clientWidth)
+        canvas.height = Math.floor(gameContainer.clientHeight / 10) * 10;
+    }
+    gameContainer.style.width = canvas.width + "px"
+    gameContainer.style.height = canvas.height + "px"
+    gameTracker = gameReset(canvas, basePixelUnit);
+    console.log('h/w', canvas.height, canvas.width)
 }
 
 //***** starting speed selector
@@ -202,7 +229,7 @@ function endGame() {
         gameScreen.classList.replace('flex', 'hidden')
         gameoverScreen.classList.remove('hidden')
         spaceBar.classList.remove('hidden')
-        gameTracker = gameReset();
+        gameTracker = gameReset(canvas, basePixelUnit);
     }, 1000);
 }
 
@@ -217,10 +244,11 @@ function togglePause() {
     }
 }
 
-//function to randomize food spawn in units of 5
+//function to randomize food spawn in units of 10
 function randomizeFood() {
-    var x = rand5(0, canvas.width-5)
-    var y = rand5(0, canvas.height-5)
+    var x = randNum(0, canvas.width-basePixelUnit, basePixelUnit)
+    var y = randNum(0, canvas.height-basePixelUnit, basePixelUnit)
+    console.log(x, y)
     //check if x or y are in snake area
     var duplicate = false
     for(var i = 0; i < gameTracker.snake.length; i++) {
@@ -241,15 +269,15 @@ function randomizeFood() {
 function drawFood() {
     if(gameTracker.foodKind == 1) {
         ctx.clearRect(0, 0, canvas.width, canvas.height)
-        ctx.drawImage(pizza, gameTracker.foodX, gameTracker.foodY, 5, 5)  
+        ctx.drawImage(pizza, gameTracker.foodX, gameTracker.foodY, basePixelUnit, basePixelUnit)  
     }
     else if(gameTracker.foodKind == 2) {
         ctx.clearRect(0, 0, canvas.width, canvas.height)
-        ctx.drawImage(burger, gameTracker.foodX, gameTracker.foodY, 5, 5) 
+        ctx.drawImage(burger, gameTracker.foodX, gameTracker.foodY, basePixelUnit, basePixelUnit) 
     }
     else {
         ctx.clearRect(0, 0, canvas.width, canvas.height)
-        ctx.drawImage(cherries, gameTracker.foodX, gameTracker.foodY, 5, 5) 
+        ctx.drawImage(cherries, gameTracker.foodX, gameTracker.foodY, basePixelUnit, basePixelUnit) 
     } 
  }
 
@@ -268,12 +296,12 @@ function eatFood() {
         //if moving horizontally add length to x-axis
         if(gameTracker.keyPress.left || gameTracker.keyPress.right) {
             gameTracker.snake.unshift([gameTracker.foodX, gameTracker.foodY])
-            gameTracker.snake.push([gameTracker.snake[length-1][0], gameTracker.snake[length-1][1]], [gameTracker.snake[length-1][0]+5, gameTracker.snake[length-1][1]])
+            gameTracker.snake.push([gameTracker.snake[length-1][0], gameTracker.snake[length-1][1]], [gameTracker.snake[length-1][0]+basePixelUnit, gameTracker.snake[length-1][1]])
         }              
         //if moving vertically add length to y-axis
         if(gameTracker.keyPress.up || gameTracker.keyPress.down)        
             {gameTracker.snake.unshift([gameTracker.foodX, gameTracker.foodY])
-            gameTracker.snake.push([gameTracker.snake[length-1][0], gameTracker.snake[length-1][1]], [gameTracker.snake[length-1][0], gameTracker.snake[length-1][1]+5])}        
+            gameTracker.snake.push([gameTracker.snake[length-1][0], gameTracker.snake[length-1][1]], [gameTracker.snake[length-1][0], gameTracker.snake[length-1][1]+basePixelUnit])}        
         //reset food type and location
         randomizeFood()
         gameTracker.foodKind = pickFood()
@@ -282,10 +310,10 @@ function eatFood() {
 
 function hitWalls() {
     //ends game if walls are hit
-    if(gameTracker.snakeHeadX + gameTracker.directionX < 0 || gameTracker.snakeHeadX + gameTracker.directionX > canvas.width - 5) {
+    if(gameTracker.snakeHeadX + gameTracker.directionX < 0 || gameTracker.snakeHeadX + gameTracker.directionX > canvas.width - basePixelUnit) {
         endGame()
         
-    } else if(gameTracker.snakeHeadY + gameTracker.directionY < 0 || gameTracker.snakeHeadY + gameTracker.directionY > canvas.height - 5) {
+    } else if(gameTracker.snakeHeadY + gameTracker.directionY < 0 || gameTracker.snakeHeadY + gameTracker.directionY > canvas.height - basePixelUnit) {
         endGame()
     }
 }
@@ -324,7 +352,7 @@ function moveSnake() {
 
 function drawSnake([n,m]) { 
     ctx.beginPath()
-    ctx.rect(n,m,5,5)
+    ctx.rect(n,m,basePixelUnit,basePixelUnit)
     ctx.fillStyle = '#00ff00'
     ctx.fill()
     ctx.strokeStyle = "#009300"
@@ -352,7 +380,8 @@ function drawGame() {
 
 function initGame() {
     //************set starting environment
-    keyboardEventListeners()
+    setCanvasSize(canvas)
+    eventListeners()
     speedButtons.forEach(function(el) {
         el.addEventListener('click', setSpeed);
     })

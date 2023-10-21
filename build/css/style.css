@@ -41,8 +41,6 @@
   border-color: rgb(235 0 255 / var(--tw-border-opacity));
 }
   .game-container {
-  height: 320px;
-  width: 480px;
   border-width: 1.5px;
   border-style: dashed;
   --tw-border-opacity: 1;
@@ -215,6 +213,13 @@
 .top-0 {
   top: 0px;
 }
+.z-10 {
+  z-index: 10;
+}
+.mx-3 {
+  margin-left: 0.75rem;
+  margin-right: 0.75rem;
+}
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -258,8 +263,14 @@
 .hidden {
   display: none;
 }
+.h-full {
+  height: 100%;
+}
 .w-\[100px\] {
   width: 100px;
+}
+.max-w-\[100\%-6px\] {
+  max-width: 100%-6px;
 }
 .flex-1 {
   -webkit-box-flex: 1;
@@ -280,9 +291,9 @@
       -ms-flex-positive: 1;
           flex-grow: 1;
 }
-.basis-\[480px\] {
-  -ms-flex-preferred-size: 480px;
-      flex-basis: 480px;
+.basis-full {
+  -ms-flex-preferred-size: 100%;
+      flex-basis: 100%;
 }
 @-webkit-keyframes scale-color {
   0% {
@@ -368,6 +379,9 @@
   -webkit-animation: fade-out 1s forwards;
           animation: fade-out 1s forwards;
 }
+.resize {
+  resize: both;
+}
 .flex-row {
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
@@ -385,6 +399,11 @@
       -ms-flex-align: center;
           align-items: center;
 }
+.items-stretch {
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+}
 .justify-center {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
@@ -396,9 +415,6 @@
 }
 .bg-pink\/\[\.67\] {
   background-color: rgb(255 213 232 / .67);
-}
-.bg-white\/\[\.67\] {
-  background-color: rgb(255 255 255 / .67);
 }
 .bg-sky {
   background-image: url(../images/sky-background.png);
@@ -463,4 +479,118 @@ body {
   -webkit-transition: opacity 1500ms;
   -o-transition: opacity 1500ms;
   transition: opacity 1500ms;
+}
+
+@media not all and (min-width: 768px) {
+  .max-md\:items-center {
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .max-md\:justify-center {
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+}
+
+@media not all and (min-width: 640px) {
+  .max-sm\:order-3 {
+    -webkit-box-ordinal-group: 4;
+        -ms-flex-order: 3;
+            order: 3;
+  }
+  .max-sm\:flex {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  .max-sm\:hidden {
+    display: none;
+  }
+  .max-sm\:flex-grow {
+    -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+            flex-grow: 1;
+  }
+  .max-sm\:flex-col {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .max-sm\:items-center {
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .max-sm\:justify-center {
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  .max-sm\:self-stretch {
+    -ms-flex-item-align: stretch;
+        align-self: stretch;
+  }
+}
+
+@media (min-width: 640px) {
+  .sm\:mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .sm\:flex {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  .sm\:h-\[320px\] {
+    height: 320px;
+  }
+  .sm\:w-\[480px\] {
+    width: 480px;
+  }
+  .sm\:flex-shrink-0 {
+    -ms-flex-negative: 0;
+        flex-shrink: 0;
+  }
+  .sm\:grow {
+    -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+            flex-grow: 1;
+  }
+  .sm\:basis-\[480px\] {
+    -ms-flex-preferred-size: 480px;
+        flex-basis: 480px;
+  }
+  .sm\:flex-row {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+  }
+  .sm\:flex-col {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
+
+@media (min-width: 768px) {
+  .md\:mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .md\:h-\[320px\] {
+    height: 320px;
+  }
+  .md\:w-\[480px\] {
+    width: 480px;
+  }
+  .md\:basis-\[480px\] {
+    -ms-flex-preferred-size: 480px;
+        flex-basis: 480px;
+  }
 }
