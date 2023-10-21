@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" class="font-VT323">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
     <title>BlairSnake</title>
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
@@ -13,10 +13,10 @@
 </head>
 
 <body class="bg-sky bg-fixed bg-[size:auto_100%] bg-[color:#73e0ff] text-center font-VT323 flex flex-col">
-    <div class="wrapper flex-grow flex-shrink-0">
+    <div class="wrapper flex-grow flex-shrink-0 max-sm:flex max-sm:flex-col">
         <h1 class="mt-5 mb-0 text-5xl">BlairSnake</h1>
-        <div class="flex flex-row mt-5">
-            <section id="high-scores" class="flex-1 flex flex-col items-center">
+        <div class="flex flex-col max-sm:flex-grow sm:flex-row mt-5">
+            <section id="high-scores" class="flex-1 flex flex-col max-sm:hidden max-sm:order-3 items-center">
                 <div class="px-8 py-5 text-left">
                     <h2>Your High Scores</h2>
                     <ol id="leaderboard">
@@ -28,9 +28,9 @@
                     </ol>
                 </div>
             </section>
-            <div class="game-container mx-auto flex-shrink-0 basis-[480px] flex flex-col">
+            <div id="game-container" class="game-container max-w-[100%-6px] mx-auto sm:flex-shrink-0 sm:h-[320px] sm:w-[480px] sm:basis-[480px] sm:flex sm:flex-col max-sm:items-center max-sm:justify-center">
                 <!--start screen-->
-                <section id="start-screen" class="grow py-5">
+                <section id="start-screen" class="sm:grow py-5">
                     <h2>Welcome to BlairSnake!<br>This is not your ordinary game of snake.</h2>
                     <img src="build/images/8bitsnake.gif" alt="8-bit snake" class="my-2">
             
@@ -43,7 +43,7 @@
                 </section>
                 <!-- end start screen -->
                 <!--game screen-->
-                <section id="game-screen" class="relative hidden grow flex-col animate-fade-in">
+                <section id="game-screen" class="relative hidden grow flex-col animate-fade-in max-sm:self-stretch">
                     <div id="pause-screen" class="grow absolute top-0 left-0 right-0 bottom-0 bg-pink/[.67] flex items-center justify-center hidden">
                         <h2>-- Paused --</h2>
                     </div>
