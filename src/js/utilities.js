@@ -19,17 +19,9 @@ const createImg = (options) => {
   return img
 }
 
-const playStartSound = () => {
-    document.getElementById('start').volume = 0.15
-    document.getElementById('start').play()
-}
-const playFoodSound = () => {
-    document.getElementById('food').volume = 0.15
-    document.getElementById('food').play()
-}
-const playDeathSound = () => {
-    document.getElementById('death').volume = 0.15
-    document.getElementById('death').play()
+const playSound = (soundID) => {
+  document.getElementById(soundID).volume = 0.1
+  document.getElementById(soundID).play()
 }
 
 const displayScore = (score) => {
@@ -76,4 +68,4 @@ const gameReset = (canvas, basePixelUnit = 10) => {
   return initialValues;
 }
 
-export { isMobileDevice, createImg, playStartSound, playFoodSound, playDeathSound, displayScore, increaseSpeed, randNum, pickFood, gameReset }
+export { isMobileDevice, createImg, playSound, displayScore, increaseSpeed, randNum, pickFood, gameReset }
