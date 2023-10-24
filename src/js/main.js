@@ -1,6 +1,6 @@
 import sounds from './sounds'
 import images from './images'
-import { isMobileDevice, createImg, playStartSound, playFoodSound, playDeathSound, displayScore, increaseSpeed, randNum, pickFood, gameReset } from './utilities';
+import { isMobileDevice, createImg, playSound, displayScore, increaseSpeed, randNum, pickFood, gameReset } from './utilities';
 
 //screen modes
 let startScreen = document.getElementById('start-screen')
@@ -149,8 +149,56 @@ function eventListeners() {
     })
 }
 
+function touchEventListeners() {
+    document.addEventListener('touchstart', function(e) {
+        console.log(e.target.dataset.key)
+        let key = e.target.dataset.key
+        if(key === 'up' && !gameTracker.keyPress.down) {
+            //up
+            gameTracker.keyPress.up = true
+            gameTracker.directionX = 0
+            gameTracker.directionY = -basePixelUnit
+    
+            gameTracker.keyPress.left = false
+            gameTracker.keyPress.right = false
+            gameTracker.keyPress.down = false
+        }
+        if(key === "down" && !gameTracker.keyPress.up) {
+            //down
+            gameTracker.keyPress.down = true
+            gameTracker.directionX = 0
+            gameTracker.directionY = basePixelUnit
+    
+            gameTracker.keyPress.up = false
+            gameTracker.keyPress.right = false
+            gameTracker.keyPress.left = false
+        }
+        if(key === "left" && !gameTracker.keyPress.right) {
+            //left
+            gameTracker.keyPress.left = true
+            gameTracker.directionX = -basePixelUnit
+            gameTracker.directionY = 0
+    
+            gameTracker.keyPress.right = false
+            gameTracker.keyPress.down = false
+            gameTracker.keyPress.up = false
+        }
+        if(key === "right" && !gameTracker.keyPress.left) {
+            //right
+            gameTracker.keyPress.right = true
+            gameTracker.directionX = basePixelUnit
+            gameTracker.directionY = 0
+    
+            gameTracker.keyPress.left = false
+            gameTracker.keyPress.up = false
+            gameTracker.keyPress.down = false
+        }
+
+    })
+}
+
 function setCanvasSize(canvas) {
-    if(!isMobileDevice()) {
+    if(!isMobileDevice() || wrapper.clientWidth > 640) {
         canvas.width = 480;
         canvas.height = 320;
     } else {
@@ -197,7 +245,7 @@ function setHighScores(score) {
 }
 
 function startGame() {
-    playStartSound()
+    playSound('start-sound')
     randomizeFood()
     gameTracker.foodKind = pickFood()
     startScreen.classList.add('hidden')
@@ -219,7 +267,7 @@ function endGame() {
     gameTracker.fps = 0
 
     setHighScores(score)
-    playDeathSound()
+    playSound('death-sound')
 
     gameScreen.classList.remove('animate-fade-in')
     gameScreen.classList.add('animate-fade-out')
@@ -283,7 +331,7 @@ function drawFood() {
 function eatFood() {
     //if food coordinates equal snake head coordinates, eat food and add length
     if(gameTracker.foodX === gameTracker.snakeHeadX && gameTracker.foodY === gameTracker.snakeHeadY) {
-        playFoodSound()
+        playSound('food-sound')
         score++
         displayScore(score)
         if(score%5 === 0) {
@@ -380,6 +428,7 @@ function initGame() {
     //************set starting environment
     setCanvasSize(canvas)
     eventListeners()
+    touchEventListeners()
     speedButtons.forEach(function(el) {
         el.addEventListener('click', setSpeed);
     })

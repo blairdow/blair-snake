@@ -15,7 +15,7 @@
 <body class="bg-sky bg-fixed bg-[size:auto_100%] bg-[color:#73e0ff] text-center font-VT323 flex flex-col">
     <div class="wrapper flex-grow flex-shrink-0">
         <h1 class="mt-5 mb-0 text-5xl">BlairSnake</h1>
-        <div class="flex flex-row max-sm:justify-center mt-5">
+        <div class="flex flex-row flex-wrap max-sm:justify-center mt-5">
             <section id="high-scores" class="flex-1 flex flex-col max-sm:hidden max-sm:order-3 items-center">
                 <div class="px-8 py-5 text-left">
                     <h2>Your High Scores</h2>
@@ -37,9 +37,9 @@
             
                     <h2>Choose your speed...</h2>
                     <div class="speed-buttons">
-                        <button type="button" class="fast" data-fps="10">fast</button>
-                        <button type="button" class="faster" data-fps="15">faster</button>
-                        <button type="button" class="fastest italic" data-fps="20">fastest!</button>
+                        <button type="button" class="w-[100px] fast" data-fps="10">fast</button>
+                        <button type="button" class="w-[100px] faster" data-fps="15">faster</button>
+                        <button type="button" class="w-[100px] fastest italic" data-fps="20">fastest!</button>
                     </div>
                 </section>
                 <!-- end start screen -->
@@ -58,15 +58,26 @@
                     <img src="build/images/dead_snake.gif" id="dead-snake" class="w-[100px] mt-[10px]" alt="dead snake">
                     <h2 class="speed">choose your speed...</h2>
                     <div class="speed-buttons block">
-                        <button type="button" data-fps="10" class="fast mb-[5px]">fast</button>
-                        <button type="button" data-fps="15" class="faster mb-[5px]">faster</button>
-                        <button type="button" data-fps="20" class ="fastest italic mb-[5px]">fastest!</button>
+                        <button type="button" data-fps="10" class="w-[100px] fast mb-[5px]">fast</button>
+                        <button type="button" data-fps="15" class="w-[100px] faster mb-[5px]">faster</button>
+                        <button type="button" data-fps="20" class ="w-[100px] fastest italic mb-[5px]">fastest!</button>
                     </div>
                 </section>
                 <!-- end game over screen -->
             </div>
             <div class="flex-1 max-sm:hidden"></div>
+
+            <!-- keypad for mobile/touch devices -->
+            <div class="keypad grid grid-cols-6 grid-rows-3 gap-1 w-full">
+                <button id="up" class="block col-span-2 col-start-3" data-key="up">&#8673;</button> <!-- up arrow -->
+                <button id="left" class="col-span-2 row-start-2" data-key="left">&#8672;</button> <!-- left arrow -->
+                <button id="down" class="col-span-2 row-start-2" data-key="down">&#8675;</button> <!-- down arrow -->
+                <button id="right" class="col-span-2 row-start-2" data-key="right">&#8674;</button> <!-- right arrow -->
+                <button id="start" class="col-span-3 row-start-3" data-key="start">start</button>
+                <button id="pause" class="col-span-3 row-start-3" data-key="pause">pause</button>
+            </div>
         </div>
+
 
         <div class="bottom-menu p-10">
             <h2 class="score-wrapper hidden">Score: <span class="score">0</span></h2>
@@ -86,9 +97,9 @@
    
 
     <!--audio files  -->
-    <audio src="build/sounds/start.wav" id="start"></audio>
-    <audio src="build/sounds/food.wav" id="food"></audio> 
-    <audio src="build/sounds/death.wav" id="death"></audio>  
+    <audio src="build/sounds/start.wav" id="start-sound"></audio>
+    <audio src="build/sounds/food.wav" id="food-sound"></audio> 
+    <audio src="build/sounds/death.wav" id="death-sound"></audio>  
     
     <script src= "build/js/style.js"></script>
     <script src= "build/js/main.js"></script>
