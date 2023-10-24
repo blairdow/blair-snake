@@ -2,7 +2,6 @@ import sounds from './sounds'
 import images from './images'
 import { isMobileDevice, createImg, playStartSound, playFoodSound, playDeathSound, displayScore, increaseSpeed, randNum, pickFood, gameReset } from './utilities';
 
-
 //screen modes
 let startScreen = document.getElementById('start-screen')
 let gameScreen = document.getElementById('game-screen')
@@ -12,7 +11,7 @@ let gameContainer = document.getElementById('game-container')
 let wrapper = document.querySelector('.wrapper')
 
 //game unit size (sets base for size of snake and food in pixels square)
-let basePixelUnit = 10
+let basePixelUnit = 10;
 
 //canvas elements
 let canvas = document.getElementById('myCanvas')
@@ -155,9 +154,8 @@ function setCanvasSize(canvas) {
         canvas.width = 480;
         canvas.height = 320;
     } else {
-        canvas.width = Math.floor((wrapper.clientWidth-10) / 10) * 10;
-        console.log('gamecontainer width', wrapper.clientWidth)
-        canvas.height = Math.floor(gameContainer.clientHeight / 10) * 10;
+        canvas.width = Math.floor((wrapper.clientWidth-10) / basePixelUnit) * basePixelUnit;
+        canvas.height = Math.floor(gameContainer.clientHeight / basePixelUnit) * basePixelUnit;
     }
     gameContainer.style.width = canvas.width + "px"
     gameContainer.style.height = canvas.height + "px"

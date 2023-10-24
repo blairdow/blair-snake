@@ -46,15 +46,6 @@ const randNum = (min, max, multiple) => {
     return Math.round((Math.random()*(max-min)+min)/multiple)*multiple;
 }
 
-const snakeReset = () => {
-  let snake =[[150,125],
-            [150,130],
-            [150,135],
-            [150,140],
-            [150,145]]
-  return snake
-}
-
 const pickFood = () => {
   let foodKind = Math.floor((Math.random()*3)+1)
   return foodKind
@@ -85,4 +76,4 @@ const gameReset = (canvas, basePixelUnit = 10) => {
   return initialValues;
 }
 
-export { isMobileDevice, createImg, playStartSound, playFoodSound, playDeathSound, displayScore, increaseSpeed, snakeReset, randNum, pickFood, gameReset }
+export { isMobileDevice, createImg, playStartSound, playFoodSound, playDeathSound, displayScore, increaseSpeed, randNum, pickFood, gameReset }
