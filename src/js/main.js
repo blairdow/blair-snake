@@ -78,8 +78,7 @@ let gameTracker = {
 function eventListeners() {
     //set canvas size
     window.addEventListener('resize', function() {
-
-        setCanvasSize(canvas)
+        setCanvasSize(canvas)        
         console.log('resize', gameContainer.clientWidth, gameContainer.clientHeight)
     }, true);
 
@@ -156,7 +155,7 @@ function setCanvasSize(canvas) {
         canvas.width = 480;
         canvas.height = 320;
     } else {
-        canvas.width = Math.floor((wrapper.clientWidth) / 10) * 10;
+        canvas.width = Math.floor((wrapper.clientWidth-10) / 10) * 10;
         console.log('gamecontainer width', wrapper.clientWidth)
         canvas.height = Math.floor(gameContainer.clientHeight / 10) * 10;
     }
@@ -201,6 +200,8 @@ function setHighScores(score) {
 
 function startGame() {
     playStartSound()
+    randomizeFood()
+    gameTracker.foodKind = pickFood()
     startScreen.classList.add('hidden')
     gameoverScreen.classList.add('hidden')
     gameScreen.classList.remove('animate-fade-out')
@@ -248,7 +249,6 @@ function togglePause() {
 function randomizeFood() {
     var x = randNum(0, canvas.width-basePixelUnit, basePixelUnit)
     var y = randNum(0, canvas.height-basePixelUnit, basePixelUnit)
-    console.log(x, y)
     //check if x or y are in snake area
     var duplicate = false
     for(var i = 0; i < gameTracker.snake.length; i++) {
@@ -385,10 +385,6 @@ function initGame() {
     speedButtons.forEach(function(el) {
         el.addEventListener('click', setSpeed);
     })
-    //call to set initial food coordinates
-    randomizeFood()
-    //call to initialize food type
-    gameTracker.foodKind = pickFood()
 }
 //end functions
 

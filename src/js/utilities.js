@@ -20,15 +20,15 @@ const createImg = (options) => {
 }
 
 const playStartSound = () => {
-    document.getElementById('start').volume = 0.3
+    document.getElementById('start').volume = 0.15
     document.getElementById('start').play()
 }
 const playFoodSound = () => {
-    document.getElementById('food').volume = 0.3
+    document.getElementById('food').volume = 0.15
     document.getElementById('food').play()
 }
 const playDeathSound = () => {
-    document.getElementById('death').volume = 0.3
+    document.getElementById('death').volume = 0.15
     document.getElementById('death').play()
 }
 

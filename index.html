@@ -13,9 +13,9 @@
 </head>
 
 <body class="bg-sky bg-fixed bg-[size:auto_100%] bg-[color:#73e0ff] text-center font-VT323 flex flex-col">
-    <div class="wrapper flex-grow flex-shrink-0 max-sm:flex max-sm:flex-col">
+    <div class="wrapper flex-grow flex-shrink-0">
         <h1 class="mt-5 mb-0 text-5xl">BlairSnake</h1>
-        <div class="flex flex-row max-sm:flex-grow mt-5">
+        <div class="flex flex-row max-sm:justify-center mt-5">
             <section id="high-scores" class="flex-1 flex flex-col max-sm:hidden max-sm:order-3 items-center">
                 <div class="px-8 py-5 text-left">
                     <h2>Your High Scores</h2>
@@ -29,7 +29,7 @@
                 </div>
             </section>
             <!-- <div id="game-container" class="game-container mx-auto sm:flex-shrink-0 sm:h-[320px] sm:w-[480px] sm:basis-[480px] sm:flex sm:flex-col max-sm:flex-grow"> -->
-            <div id="game-container" class="game-container mx-auto">
+            <div id="game-container" class="game-container sm:mx-auto box-content">
                 <!--start screen-->
                 <section id="start-screen" class="py-5">
                     <h2>Welcome to BlairSnake!<br>This is not your ordinary game of snake.</h2>
@@ -48,7 +48,7 @@
                     <div id="pause-screen" class="absolute top-0 left-0 right-0 bottom-0 bg-pink/[.67] z-10 flex items-center justify-center hidden">
                         <h2>-- Paused --</h2>
                     </div>
-                    <canvas id="myCanvas" class="block grow absolute top-0 left-0 right-0 bottom-0"></canvas>
+                    <canvas id="myCanvas" class="block grow"></canvas>
                 </section>
                 <!-- end game screen -->
                 <!--game over screen-->

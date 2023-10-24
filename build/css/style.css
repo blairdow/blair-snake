@@ -246,6 +246,10 @@
 .mt-\[10px\] {
   margin-top: 10px;
 }
+.box-content {
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+}
 .block {
   display: block;
 }
@@ -499,6 +503,10 @@ body {
     -webkit-box-ordinal-group: 4;
         -ms-flex-order: 3;
             order: 3;
+  }
+  .max-sm\:mx-1 {
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
   }
   .max-sm\:flex {
     display: -webkit-box;
