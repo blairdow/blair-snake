@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="build/css/style.css">
 </head>
 
-<body class="bg-sky bg-fixed bg-[size:auto_100%] bg-[color:#73e0ff] text-center font-VT323 flex flex-col">
+<body class="bg-[color:#73e0ff] text-center font-VT323 flex flex-col before:content-[''] before:block before:bg-sky before:bg-[size:auto_100%] before:fixed before:left-0 before:top-0 before:w-full before:h-full before:-z-10">
     <div class="wrapper flex-grow flex-shrink-0">
         <div class="grid grid-cols-2 sm:block">
             <h1 class="sm:mt-5 mb-0 text-4xl sm:text-5xl col-span-1">BlairSnake</h1>
@@ -22,7 +22,7 @@
             <section id="high-scores" class="flex-1 flex flex-col max-sm:hidden max-sm:order-3 items-center">
                 <div class="px-8 py-5 text-left">
                     <h2>Your High Scores</h2>
-                    <ol id="leaderboard">
+                    <ol class="leaderboard">
                         <li></li>
                         <li></li>
                         <li></li>
@@ -70,7 +70,7 @@
             <div class="flex-1 max-sm:hidden"></div>
 
             <!-- keypad for mobile/touch devices -->
-            <div class="keypad justify-center w-full p-4 pt-1">
+            <section class="keypad justify-center w-full p-4 pt-1">
                 <div class="basis-[480px]">
                     <div class="grid grid-cols-6 grid-rows-2 gap-1 mb-4">
                         <button id="up" class="mt-0 col-span-2 col-start-3" data-key="up">&#8673;</button> <!-- up arrow -->
@@ -83,17 +83,30 @@
                         <button id="pause" class="mt-0 col-span-3" data-key="pause">pause</button>
                     </div>
                 </div>
-            </div>
+            </section>
         </div>
 
-        <div class="bottom-menu p-4 pt-2 sm:p-10">
+        <section class="bottom-menu p-4 pt-2 sm:p-10">
             <h2 class="score-wrapper hidden">Score: <span class="score">0</span></h2>
             <h2 class="space-bar mb-0 hidden-touch inline-block">-  Push Space Bar to start -</h2>
             <h2 class="mb-0">use arrow keys to navigate</h2>
             <h2 class="hidden-touch mb-0">use "P" key to pause/unpause</h2>
             <h2 class="mb-0">eat the food</h2>
             <h2 class="mb-0">don't hit the walls or your tail!</h2>
-        </div>
+        </section>
+
+        <section class="high-scores-mobile">
+            <div class="px-4 py-2">
+                <h2>Your High Scores</h2>
+                <ol class="leaderboard inline-block p-0 mt-2 text-2xl leading-none">
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ol>
+            </div>
+        </section>
     </div>
 
     <!--footer-->

@@ -20,7 +20,7 @@ let ctx = canvas.getContext('2d')
 //game elements
 let speedButtons = document.querySelectorAll('.speed-buttons button');
 let spaceBar = document.querySelector('.space-bar')
-let leaderboard = document.getElementById('leaderboard')
+let leaderboards = document.querySelectorAll('.leaderboard')
 
 //food image elements
 let burger = createImg({
@@ -41,12 +41,6 @@ let pizza = createImg({
 
 let score = 0;
 let highScores = JSON.parse(localStorage.getItem("highScores")) //check local storage for existing high scores
-if(highScores == null) {
-    //set empty array if no scores
-    highScores = []
-    localStorage.setItem("highScores", JSON.stringify(highScores))
-} 
-displayHighScores()
 
 let gameTracker = {
     snake: [[Math.floor((canvas.width/2)/basePixelUnit)*basePixelUnit, canvas.height-(basePixelUnit*5)], //starting snake position
@@ -243,18 +237,30 @@ function setSpeed() {
     document.querySelector('.space-bar').classList.add('animate-emphasize-color')
 }
 
-function displayHighScores() {
+function initHighScores(highScores) {
+    if(highScores == null) {
+        //set empty array if no scores
+        highScores = []
+        localStorage.setItem("highScores", JSON.stringify(highScores))
+    } 
+    displayHighScores(highScores)
+}
+
+function displayHighScores(highScores) {
     if(highScores.length > 0) {
-        leaderboard.innerHTML = "";
-        highScores.map(el => {
-            let listItem = document.createElement('li')
-            listItem.textContent = el
-            leaderboard.append(listItem)
+        leaderboards.forEach((leaderboard) => {
+            leaderboard.innerHTML = "";
+            highScores.map((score) => {
+                let listItem = document.createElement('li')
+                listItem.textContent = score
+                leaderboard.append(listItem)
+            })
         })
     }
 }
 
 function setHighScores(score) {
+    console.log('high scores', highScores)
     if(score > 0 && highScores.indexOf(score) < 0) {
         highScores.push(score)
         highScores.sort((a, b) => b - a)
@@ -262,7 +268,7 @@ function setHighScores(score) {
             highScores.length = 10
         }
         localStorage.setItem("highScores", JSON.stringify(highScores))
-        displayHighScores()
+        displayHighScores(highScores)
     }
 }
 
@@ -316,7 +322,7 @@ function togglePause() {
     }
 }
 
-//function to randomize food spawn in units of 10
+//function to randomize food spawn in basePixelUnits
 function randomizeFood() {
     var x = randNum(0, canvas.width-basePixelUnit, basePixelUnit)
     var y = randNum(0, canvas.height-basePixelUnit, basePixelUnit)
@@ -379,8 +385,8 @@ function eatFood() {
     } 
 }
 
+//ends game if walls are hit
 function hitWalls() {
-    //ends game if walls are hit
     if(gameTracker.snakeHeadX + gameTracker.directionX < 0 || gameTracker.snakeHeadX + gameTracker.directionX > canvas.width - basePixelUnit) {
         endGame()
         
@@ -421,6 +427,7 @@ function moveSnake() {
     gameTracker.snakeHeadY = gameTracker.snake[0][1]
 }
 
+//canvas stuff
 function drawSnake([n,m]) { 
     ctx.beginPath()
     ctx.rect(n,m,basePixelUnit,basePixelUnit)
@@ -431,7 +438,7 @@ function drawSnake([n,m]) {
     ctx.closePath()
 }
 
-//animation!
+//animation! canvas draw function
 function drawGame() {
     if(!gameTracker.gameActive || gameTracker.paused) {return;} 
     setTimeout(function () { //setTimeout used with requestAnimationFrame to control speed of animation
@@ -452,6 +459,7 @@ function initGame() {
     if(isTouchScreen()) {
         document.body.classList.add('touchscreen')
     }
+    initHighScores(highScores)
 }
 //end functions
 
