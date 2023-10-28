@@ -9,6 +9,10 @@ const isMobileDevice = () => {
   return isMobile
 }
 
+const isTouchScreen = () => {
+  return (('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0))
+}
+
 const createImg = (options) => {
   let img = document.createElement('img')
     for (const key in options) {
@@ -63,9 +67,11 @@ const gameReset = (canvas, basePixelUnit = 10) => {
         left: false,
         up: false,
         down: false
-    }
+    },
+    gameActive: false,
+    paused: false
   }
   return initialValues;
 }
 
-export { isMobileDevice, createImg, playSound, displayScore, increaseSpeed, randNum, pickFood, gameReset }
+export { isMobileDevice, isTouchScreen, createImg, playSound, displayScore, increaseSpeed, randNum, pickFood, gameReset }

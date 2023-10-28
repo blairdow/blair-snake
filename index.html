@@ -28,14 +28,13 @@
                     </ol>
                 </div>
             </section>
-            <!-- <div id="game-container" class="game-container mx-auto sm:flex-shrink-0 sm:h-[320px] sm:w-[480px] sm:basis-[480px] sm:flex sm:flex-col max-sm:flex-grow"> -->
             <div id="game-container" class="game-container sm:mx-auto box-content">
                 <!--start screen-->
                 <section id="start-screen" class="py-5">
                     <h2>Welcome to BlairSnake!<br>This is not your ordinary game of snake.</h2>
                     <img src="build/images/8bitsnake.gif" alt="8-bit snake" class="my-2">
             
-                    <h2>Choose your speed...</h2>
+                    <h2 class="speed">Choose your speed...</h2>
                     <div class="speed-buttons">
                         <button type="button" class="w-[100px] fast" data-fps="10">fast</button>
                         <button type="button" class="w-[100px] faster" data-fps="15">faster</button>
@@ -68,22 +67,27 @@
             <div class="flex-1 max-sm:hidden"></div>
 
             <!-- keypad for mobile/touch devices -->
-            <div class="keypad grid grid-cols-6 grid-rows-3 gap-1 w-full">
-                <button id="up" class="block col-span-2 col-start-3" data-key="up">&#8673;</button> <!-- up arrow -->
-                <button id="left" class="col-span-2 row-start-2" data-key="left">&#8672;</button> <!-- left arrow -->
-                <button id="down" class="col-span-2 row-start-2" data-key="down">&#8675;</button> <!-- down arrow -->
-                <button id="right" class="col-span-2 row-start-2" data-key="right">&#8674;</button> <!-- right arrow -->
-                <button id="start" class="col-span-3 row-start-3" data-key="start">start</button>
-                <button id="pause" class="col-span-3 row-start-3" data-key="pause">pause</button>
+            <div class="keypad justify-center w-full p-4 pt-1">
+                <div class="basis-[480px]">
+                    <div class="grid grid-cols-6 grid-rows-2 gap-1 mb-4">
+                        <button id="up" class="mt-0 col-span-2 col-start-3" data-key="up">&#8673;</button> <!-- up arrow -->
+                        <button id="left" class="mt-0 col-span-2 row-start-2" data-key="left">&#8672;</button> <!-- left arrow -->
+                        <button id="down" class="mt-0 col-span-2 row-start-2" data-key="down">&#8675;</button> <!-- down arrow -->
+                        <button id="right" class="mt-0 col-span-2 row-start-2" data-key="right">&#8674;</button> <!-- right arrow -->
+                    </div>
+                    <div class="grid grid-cols-6 gap-1">
+                        <button id="start" class="mt-0 col-span-3" data-key="start">start</button>
+                        <button id="pause" class="mt-0 col-span-3" data-key="pause">pause</button>
+                    </div>
+                </div>
             </div>
         </div>
 
-
-        <div class="bottom-menu p-10">
+        <div class="bottom-menu p-4 pt-2 sm:p-10">
             <h2 class="score-wrapper hidden">Score: <span class="score">0</span></h2>
-            <h2 class="space-bar mb-0 inline-block">-  Push Space Bar to start -</h2>
+            <h2 class="space-bar mb-0 hidden-touch inline-block">-  Push Space Bar to start -</h2>
             <h2 class="mb-0">use arrow keys to navigate</h2>
-            <h2 class="mb-0">use "P" key to pause/unpause</h2>
+            <h2 class="hidden-touch mb-0">use "P" key to pause/unpause</h2>
             <h2 class="mb-0">eat the food</h2>
             <h2 class="mb-0">don't hit the walls or your tail!</h2>
         </div>

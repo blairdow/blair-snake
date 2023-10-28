@@ -1,6 +1,6 @@
 import sounds from './sounds'
 import images from './images'
-import { isMobileDevice, createImg, playSound, displayScore, increaseSpeed, randNum, pickFood, gameReset } from './utilities';
+import { isMobileDevice, isTouchScreen, createImg, playSound, displayScore, increaseSpeed, randNum, pickFood, gameReset } from './utilities';
 
 //screen modes
 let startScreen = document.getElementById('start-screen')
@@ -68,7 +68,7 @@ let gameTracker = {
         up: false,
         down: false
     },
-    gameover: false, //used to stop animation
+    gameActive: false,
     paused: false
 }
 
@@ -78,7 +78,6 @@ function eventListeners() {
     //set canvas size
     window.addEventListener('resize', function() {
         setCanvasSize(canvas)        
-        console.log('resize', gameContainer.clientWidth, gameContainer.clientHeight)
     }, true);
 
     //space bar to start game
@@ -87,12 +86,12 @@ function eventListeners() {
         if(gameTracker.fps > 0 && e.code === "Space") {
             score = 0
             displayScore(score)
-            spaceBar.classList.replace('animate-emphasize', 'hidden')
+            spaceBar.classList.replace('animate-emphasize-color', 'hidden')
             document.querySelector('.score-wrapper').classList.remove('hidden')
             startGame()
             drawGame()
         }
-        else if(e.code === "space") {
+        else if(e.code === "Space") {
             document.querySelector('.speed').classList.toggle('animate-emphasize')
         }
     })
@@ -106,94 +105,111 @@ function eventListeners() {
 
     //arrow keys
     document.addEventListener('keydown', function(e) {
-        if(e.code === "ArrowUp" && !gameTracker.keyPress.down) {
-            //up
-            gameTracker.keyPress.up = true
-            gameTracker.directionX = 0
-            gameTracker.directionY = -basePixelUnit
-    
-            gameTracker.keyPress.left = false
-            gameTracker.keyPress.right = false
-            gameTracker.keyPress.down = false
-        }
-        if(e.code === "ArrowDown" && !gameTracker.keyPress.up) {
-            //down
-            gameTracker.keyPress.down = true
-            gameTracker.directionX = 0
-            gameTracker.directionY = basePixelUnit
-    
-            gameTracker.keyPress.up = false
-            gameTracker.keyPress.right = false
-            gameTracker.keyPress.left = false
-        }
-        if(e.code === "ArrowLeft" && !gameTracker.keyPress.right) {
-            //left
-            gameTracker.keyPress.left = true
-            gameTracker.directionX = -basePixelUnit
-            gameTracker.directionY = 0
-    
-            gameTracker.keyPress.right = false
-            gameTracker.keyPress.down = false
-            gameTracker.keyPress.up = false
-        }
-        if(e.code === "ArrowRight" && !gameTracker.keyPress.left) {
-            //right
-            gameTracker.keyPress.right = true
-            gameTracker.directionX = basePixelUnit
-            gameTracker.directionY = 0
-    
-            gameTracker.keyPress.left = false
-            gameTracker.keyPress.up = false
-            gameTracker.keyPress.down = false
+        if(gameTracker.gameActive) {
+            if(e.code === "ArrowUp" && !gameTracker.keyPress.down) {
+                //up
+                gameTracker.keyPress.up = true
+                gameTracker.directionX = 0
+                gameTracker.directionY = -basePixelUnit
+        
+                gameTracker.keyPress.left = false
+                gameTracker.keyPress.right = false
+                gameTracker.keyPress.down = false
+            }
+            if(e.code === "ArrowDown" && !gameTracker.keyPress.up) {
+                //down
+                gameTracker.keyPress.down = true
+                gameTracker.directionX = 0
+                gameTracker.directionY = basePixelUnit
+        
+                gameTracker.keyPress.up = false
+                gameTracker.keyPress.right = false
+                gameTracker.keyPress.left = false
+            }
+            if(e.code === "ArrowLeft" && !gameTracker.keyPress.right) {
+                //left
+                gameTracker.keyPress.left = true
+                gameTracker.directionX = -basePixelUnit
+                gameTracker.directionY = 0
+        
+                gameTracker.keyPress.right = false
+                gameTracker.keyPress.down = false
+                gameTracker.keyPress.up = false
+            }
+            if(e.code === "ArrowRight" && !gameTracker.keyPress.left) {
+                //right
+                gameTracker.keyPress.right = true
+                gameTracker.directionX = basePixelUnit
+                gameTracker.directionY = 0
+        
+                gameTracker.keyPress.left = false
+                gameTracker.keyPress.up = false
+                gameTracker.keyPress.down = false
+            }
         }
     })
 }
 
 function touchEventListeners() {
     document.addEventListener('touchstart', function(e) {
-        console.log(e.target.dataset.key)
         let key = e.target.dataset.key
-        if(key === 'up' && !gameTracker.keyPress.down) {
-            //up
-            gameTracker.keyPress.up = true
-            gameTracker.directionX = 0
-            gameTracker.directionY = -basePixelUnit
-    
-            gameTracker.keyPress.left = false
-            gameTracker.keyPress.right = false
-            gameTracker.keyPress.down = false
-        }
-        if(key === "down" && !gameTracker.keyPress.up) {
-            //down
-            gameTracker.keyPress.down = true
-            gameTracker.directionX = 0
-            gameTracker.directionY = basePixelUnit
-    
-            gameTracker.keyPress.up = false
-            gameTracker.keyPress.right = false
-            gameTracker.keyPress.left = false
-        }
-        if(key === "left" && !gameTracker.keyPress.right) {
-            //left
-            gameTracker.keyPress.left = true
-            gameTracker.directionX = -basePixelUnit
-            gameTracker.directionY = 0
-    
-            gameTracker.keyPress.right = false
-            gameTracker.keyPress.down = false
-            gameTracker.keyPress.up = false
-        }
-        if(key === "right" && !gameTracker.keyPress.left) {
-            //right
-            gameTracker.keyPress.right = true
-            gameTracker.directionX = basePixelUnit
-            gameTracker.directionY = 0
-    
-            gameTracker.keyPress.left = false
-            gameTracker.keyPress.up = false
-            gameTracker.keyPress.down = false
+
+        //must select speed (fps) before start
+        if(gameTracker.fps > 0 && key === "start") {
+            score = 0
+            displayScore(score)
+            document.querySelector('.score-wrapper').classList.remove('hidden')
+            startGame()
+            drawGame()
+        } else if(key === "start") {
+            document.querySelector('.speed').classList.toggle('animate-emphasize')
         }
 
+        if(gameTracker.gameActive) {
+            if(key === 'up' && !gameTracker.keyPress.down) {
+                //up
+                gameTracker.keyPress.up = true
+                gameTracker.directionX = 0
+                gameTracker.directionY = -basePixelUnit
+        
+                gameTracker.keyPress.left = false
+                gameTracker.keyPress.right = false
+                gameTracker.keyPress.down = false
+            }
+            if(key === "down" && !gameTracker.keyPress.up) {
+                //down
+                gameTracker.keyPress.down = true
+                gameTracker.directionX = 0
+                gameTracker.directionY = basePixelUnit
+        
+                gameTracker.keyPress.up = false
+                gameTracker.keyPress.right = false
+                gameTracker.keyPress.left = false
+            }
+            if(key === "left" && !gameTracker.keyPress.right) {
+                //left
+                gameTracker.keyPress.left = true
+                gameTracker.directionX = -basePixelUnit
+                gameTracker.directionY = 0
+        
+                gameTracker.keyPress.right = false
+                gameTracker.keyPress.down = false
+                gameTracker.keyPress.up = false
+            }
+            if(key === "right" && !gameTracker.keyPress.left) {
+                //right
+                gameTracker.keyPress.right = true
+                gameTracker.directionX = basePixelUnit
+                gameTracker.directionY = 0
+        
+                gameTracker.keyPress.left = false
+                gameTracker.keyPress.up = false
+                gameTracker.keyPress.down = false
+            }
+            if(key === "pause") {
+                togglePause()           
+            }
+        }
     })
 }
 
@@ -218,7 +234,7 @@ function setSpeed() {
         el.classList.remove('selected')
     })
     this.classList.add('selected')
-    document.querySelector('.space-bar').classList.add('animate-emphasize')
+    document.querySelector('.space-bar').classList.add('animate-emphasize-color')
 }
 
 function displayHighScores() {
@@ -246,6 +262,7 @@ function setHighScores(score) {
 
 function startGame() {
     playSound('start-sound')
+    gameTracker.gameActive = true;
     randomizeFood()
     gameTracker.foodKind = pickFood()
     startScreen.classList.add('hidden')
@@ -257,7 +274,7 @@ function startGame() {
 
 //runs if snake hits self or walls
 function endGame() {
-    gameTracker.gameover = true;
+    gameTracker.gameActive = false;
     gameTracker.keyPress.right = false
     gameTracker.keyPress.left = false
     gameTracker.keyPress.up = false
@@ -406,13 +423,9 @@ function drawSnake([n,m]) {
     ctx.closePath()
 }
 
-function setHighScore(score) {
-    localStorage.setItem('highScores', score)
-}
-
 //animation!
 function drawGame() {
-    if(gameTracker.gameover || gameTracker.paused) {return;} 
+    if(!gameTracker.gameActive || gameTracker.paused) {return;} 
     setTimeout(function () { //setTimeout used with requestAnimationFrame to control speed of animation
         hitWalls()
         hitSelf()
@@ -428,7 +441,10 @@ function initGame() {
     //************set starting environment
     setCanvasSize(canvas)
     eventListeners()
-    touchEventListeners()
+    if(isTouchScreen()) {
+        touchEventListeners()
+        document.body.classList.add('touchscreen')
+    }
     speedButtons.forEach(function(el) {
         el.addEventListener('click', setSpeed);
     })

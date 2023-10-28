@@ -33,4 +33,29 @@ body {
 .fade-in {
     transition: opacity 1500ms;
 }
+.keypad {
+    display: none;
+    button {
+        border-radius: 0;
+        border-top: 8px solid lighten(#eb00ff, 10);
+        border-right: 8px solid #eb00ff;
+        border-bottom: 8px solid #eb00ff;
+        border-left: 8px solid lighten(#eb00ff, 15);
+        line-height: 2rem;
+        font-size: 30px;
+        &:active {
+            border-bottom: 7px solid #eb00ff;
+            text-shadow: 0 0 10px #eb00ff, 0 0 10px #eb00ff, 0 0 20px #eb00ff;
+            transform: translate(0, 1px);
+        }
+    }
+}
+.touchscreen {
+    .keypad {
+        display: flex;
+    }
+    .hidden-touch {
+        display: none;
+    }
+}
 

@@ -26,7 +26,8 @@ module.exports = {
     },
     extend: {
       animation: {
-        'emphasize': 'scale-color 1s infinite ease',
+        'emphasize': 'scale 1s infinite ease',
+        'emphasize-color': 'scale-color 1s infinite ease',
         'fade-in': 'fade-in 1s',
         'fade-out': 'fade-out 1s forwards'
       },
@@ -67,6 +68,11 @@ module.exports = {
           '0%': {'transform': 'scale(1)', 'color': '#eb00ff', 'text-shadow':'2px 2px aqua'},
           '50%': {'transform': 'scale(1.1)', 'color': '#eb00ff', 'text-shadow':'2px 2px aqua'},
           '100%': {'transform': 'scale(1)', 'color': '#eb00ff', 'text-shadow':'2px 2px aqua'}
+        },
+        'scale': {
+          '0%': {'transform': 'scale(1)'},
+          '50%': {'transform': 'scale(1.1)'},
+          '100%': {'transform': 'scale(1)'}
         },
       },
     }
