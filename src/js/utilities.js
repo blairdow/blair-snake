@@ -29,8 +29,10 @@ const playSound = (soundID) => {
 }
 
 const displayScore = (score) => {
-  let scoreElement = document.querySelector('.score')
-  scoreElement.textContent = score
+  let scoreElement = document.querySelectorAll('.score')
+  scoreElement.forEach((el) => {
+    el.textContent = score
+  })
 }
 
 const increaseSpeed = (fps) => {
@@ -49,15 +51,15 @@ const pickFood = () => {
 
 const gameReset = (canvas, basePixelUnit = 10) => {
   let initialValues = {
-    snake: [[canvas.width/2, canvas.height-(basePixelUnit*5)], //starting snake position
-             [canvas.width/2, canvas.height-(basePixelUnit*4)],
-             [canvas.width/2, canvas.height-(basePixelUnit*3)],
-             [canvas.width/2, canvas.height-(basePixelUnit*2)],
-             [canvas.width/2, canvas.height-basePixelUnit]],
+    snake: [[Math.floor((canvas.width/2)/basePixelUnit)*basePixelUnit, canvas.height-(basePixelUnit*5)], //starting snake position
+             [Math.floor((canvas.width/2)/basePixelUnit)*basePixelUnit, canvas.height-(basePixelUnit*4)],
+             [Math.floor((canvas.width/2)/basePixelUnit)*basePixelUnit, canvas.height-(basePixelUnit*3)],
+             [Math.floor((canvas.width/2)/basePixelUnit)*basePixelUnit, canvas.height-(basePixelUnit*2)],
+             [Math.floor((canvas.width/2)/basePixelUnit)*basePixelUnit, canvas.height-basePixelUnit]],
     fps: 0, //starting framerate - selected with buttons
     directionX: 0,
     directionY: 0,
-    snakeHeadX: canvas.width/2,
+    snakeHeadX: Math.floor((canvas.width/2)/basePixelUnit)*basePixelUnit,
     snakeHeadY: canvas.height-(basePixelUnit*5),
     foodX: 0,   
     foodY: 0,

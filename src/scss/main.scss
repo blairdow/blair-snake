@@ -7,7 +7,7 @@
         @apply m-0;
     }
     button {
-        @apply font-[inherit] text-2xl leading-none bg-pink/75 border-dashed border-transparent border-1.5 rounded-md py-0.5 px-[5px] mt-2.5 transition duration-200 ease-out;
+        @apply font-[inherit] text-2xl text-black leading-none bg-pink/75 border-dashed border-transparent border-1.5 rounded-md py-0.5 px-[5px] mt-2.5 transition duration-200 ease-out;
     }
     button:hover, button.selected {
         @apply border-magenta;
@@ -36,6 +36,7 @@ body {
 .keypad {
     display: none;
     button {
+        color: black;
         border-radius: 0;
         border-top: 8px solid lighten(#eb00ff, 10);
         border-right: 8px solid #eb00ff;

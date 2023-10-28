@@ -49,15 +49,15 @@ if(highScores == null) {
 displayHighScores()
 
 let gameTracker = {
-    snake: [[canvas.width/2, canvas.height-(basePixelUnit*5)], //starting snake position
-             [canvas.width/2, canvas.height-(basePixelUnit*4)],
-             [canvas.width/2, canvas.height-(basePixelUnit*3)],
-             [canvas.width/2, canvas.height-(basePixelUnit*2)],
-             [canvas.width/2, canvas.height-basePixelUnit]],
+    snake: [[Math.floor((canvas.width/2)/basePixelUnit)*basePixelUnit, canvas.height-(basePixelUnit*5)], //starting snake position
+             [Math.floor((canvas.width/2)/basePixelUnit)*basePixelUnit, canvas.height-(basePixelUnit*4)],
+             [Math.floor((canvas.width/2)/basePixelUnit)*basePixelUnit, canvas.height-(basePixelUnit*3)],
+             [Math.floor((canvas.width/2)/basePixelUnit)*basePixelUnit, canvas.height-(basePixelUnit*2)],
+             [Math.floor((canvas.width/2)/basePixelUnit)*basePixelUnit, canvas.height-basePixelUnit]],
     fps: 0, //starting framerate - selected with buttons
     directionX: 0,
     directionY: 0,
-    snakeHeadX: canvas.width/2,
+    snakeHeadX: Math.floor((canvas.width/2)/basePixelUnit)*basePixelUnit,
     snakeHeadY: canvas.height-(basePixelUnit*5),
     foodX: 0,   
     foodY: 0,
@@ -77,13 +77,19 @@ let gameTracker = {
 function eventListeners() {
     //set canvas size
     window.addEventListener('resize', function() {
-        setCanvasSize(canvas)        
+        setCanvasSize(canvas)     
     }, true);
 
-    //space bar to start game
+    //set speed on button click
+    speedButtons.forEach(function(el) {
+        el.addEventListener('click', setSpeed);
+    })
+
+    //KEYBOARD EVENTS/////////////////////////////////
     document.addEventListener('keydown', function(e) {
+        //space bar
         //must select speed (fps) before start
-        if(gameTracker.fps > 0 && e.code === "Space") {
+        if(gameTracker.fps > 0 && e.code === "Space" && !gameTracker.gameActive) {
             score = 0
             displayScore(score)
             spaceBar.classList.replace('animate-emphasize-color', 'hidden')
@@ -94,18 +100,14 @@ function eventListeners() {
         else if(e.code === "Space") {
             document.querySelector('.speed').classList.toggle('animate-emphasize')
         }
-    })
 
-    //P to pause
-    document.addEventListener('keydown', function(e) {
-        if(e.code === "KeyP") {
+        //P to pause
+        if(e.code === "KeyP" && gameTracker.gameActive) {
             togglePause()
         }
-    })
 
-    //arrow keys
-    document.addEventListener('keydown', function(e) {
-        if(gameTracker.gameActive) {
+        //arrow keys
+        if(gameTracker.gameActive && !gameTracker.paused) {
             if(e.code === "ArrowUp" && !gameTracker.keyPress.down) {
                 //up
                 gameTracker.keyPress.up = true
@@ -148,14 +150,14 @@ function eventListeners() {
             }
         }
     })
-}
 
-function touchEventListeners() {
+    //TOUCH EVENTS/////////////////////////////////////
     document.addEventListener('touchstart', function(e) {
         let key = e.target.dataset.key
 
+        //start button
         //must select speed (fps) before start
-        if(gameTracker.fps > 0 && key === "start") {
+        if(gameTracker.fps > 0 && key === "start" && !gameTracker.gameActive) {
             score = 0
             displayScore(score)
             document.querySelector('.score-wrapper').classList.remove('hidden')
@@ -165,7 +167,13 @@ function touchEventListeners() {
             document.querySelector('.speed').classList.toggle('animate-emphasize')
         }
 
-        if(gameTracker.gameActive) {
+        //pause button
+        if(key === "pause" && gameTracker.gameActive) {
+            togglePause()           
+        }
+
+        //arrow keys on onscreen keypad
+        if(gameTracker.gameActive && !gameTracker.paused) {
             if(key === 'up' && !gameTracker.keyPress.down) {
                 //up
                 gameTracker.keyPress.up = true
@@ -206,9 +214,6 @@ function touchEventListeners() {
                 gameTracker.keyPress.up = false
                 gameTracker.keyPress.down = false
             }
-            if(key === "pause") {
-                togglePause()           
-            }
         }
     })
 }
@@ -223,8 +228,9 @@ function setCanvasSize(canvas) {
     }
     gameContainer.style.width = canvas.width + "px"
     gameContainer.style.height = canvas.height + "px"
-    gameTracker = gameReset(canvas, basePixelUnit);
-    console.log('h/w', canvas.height, canvas.width)
+    if(!gameTracker.gameActive) {
+        gameTracker = gameReset(canvas, basePixelUnit);
+    }
 }
 
 //***** starting speed selector
@@ -261,6 +267,8 @@ function setHighScores(score) {
 }
 
 function startGame() {
+    let startButton = document.getElementById('start')
+    startButton.disabled = true
     playSound('start-sound')
     gameTracker.gameActive = true;
     randomizeFood()
@@ -440,14 +448,10 @@ function drawGame() {
 function initGame() {
     //************set starting environment
     setCanvasSize(canvas)
-    eventListeners()
+    eventListeners() //set keyboard and touch events
     if(isTouchScreen()) {
-        touchEventListeners()
         document.body.classList.add('touchscreen')
     }
-    speedButtons.forEach(function(el) {
-        el.addEventListener('click', setSpeed);
-    })
 }
 //end functions
 
