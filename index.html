@@ -35,13 +35,12 @@
                 <!--start screen-->
                 <section id="start-screen" class="py-5">
                     <h2>Welcome to BlairSnake!<br>This is not your ordinary game of snake.</h2>
-                    <img src="build/images/8bitsnake.gif" alt="8-bit snake" class="my-2">
-            
-                    <h2 class="speed">Choose your speed...</h2>
+                    <img src="build/images/8bitsnake.gif" alt="8-bit snake" class="block mx-auto my-2">
+                    <h2 class="speed inline-block">Choose your speed...</h2>
                     <div class="speed-buttons">
-                        <button type="button" class="w-[100px] fast" data-fps="10">fast</button>
-                        <button type="button" class="w-[100px] faster" data-fps="15">faster</button>
-                        <button type="button" class="w-[100px] fastest italic" data-fps="20">fastest!</button>
+                        <button type="button" class="w-[100px]" data-fps="8">fast</button>
+                        <button type="button" class="w-[100px]" data-fps="13">faster</button>
+                        <button type="button" class="w-[100px] italic" data-fps="18">fastest!</button>
                     </div>
                 </section>
                 <!-- end start screen -->
@@ -57,12 +56,12 @@
                 <section id="game-over-screen" class="py-5 mx-auto hidden animate-fade-in">
                     <h1 class="mt-0 text-5xl">You died.</h1>
                     <h2>You played ya'self.</h2>
-                    <img src="build/images/dead_snake.gif" id="dead-snake" class="w-[100px] mt-[10px]" alt="dead snake">
-                    <h2 class="speed">choose your speed...</h2>
+                    <img src="build/images/dead_snake.gif" id="dead-snake" class="block mx-auto w-[100px] mt-[10px]" alt="dead snake">
+                    <h2 class="speed inline-block">choose your speed...</h2>
                     <div class="speed-buttons block">
-                        <button type="button" data-fps="10" class="w-[100px] fast mb-[5px]">fast</button>
-                        <button type="button" data-fps="15" class="w-[100px] faster mb-[5px]">faster</button>
-                        <button type="button" data-fps="20" class ="w-[100px] fastest italic mb-[5px]">fastest!</button>
+                        <button type="button" data-fps="8" class="w-[100px] mb-[5px]">fast</button>
+                        <button type="button" data-fps="13" class="w-[100px] mb-[5px]">faster</button>
+                        <button type="button" data-fps="18" class ="w-[100px] italic mb-[5px]">fastest!</button>
                     </div>
                 </section>
                 <!-- end game over screen -->
@@ -95,7 +94,7 @@
             <h2 class="mb-0">don't hit the walls or your tail!</h2>
         </section>
 
-        <section class="high-scores-mobile">
+        <section class="high-scores-mobile sm:hidden">
             <div class="px-4 py-2">
                 <h2>Your High Scores</h2>
                 <ol class="leaderboard inline-block p-0 mt-2 text-2xl leading-none">

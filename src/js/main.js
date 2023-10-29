@@ -84,6 +84,7 @@ function eventListeners() {
         //space bar
         //must select speed (fps) before start
         if(gameTracker.fps > 0 && e.code === "Space" && !gameTracker.gameActive) {
+            e.preventDefault();
             score = 0
             displayScore(score)
             spaceBar.classList.replace('animate-emphasize-color', 'hidden')
@@ -92,7 +93,10 @@ function eventListeners() {
             drawGame()
         }
         else if(e.code === "Space") {
-            document.querySelector('.speed').classList.toggle('animate-emphasize')
+            e.preventDefault();
+            document.querySelectorAll('.speed').forEach(el => {
+                el.classList.add('animate-emphasize')
+            })
         }
 
         //P to pause
@@ -238,6 +242,9 @@ function setSpeed() {
         el.classList.remove('selected')
     })
     this.classList.add('selected')
+    document.querySelectorAll('.speed').forEach(el => {
+        el.classList.remove('animate-emphasize')
+    })
     document.querySelector('.space-bar').classList.add('animate-emphasize-color')
 }
 
