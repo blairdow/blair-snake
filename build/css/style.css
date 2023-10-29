@@ -547,6 +547,10 @@
   -webkit-filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
           filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
+.\[touch-action\:pan-x_pan-y\] {
+  -ms-touch-action: pan-x pan-y;
+      touch-action: pan-x pan-y;
+}
 html, body {
   height: 100%;
 }
