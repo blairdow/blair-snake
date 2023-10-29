@@ -1,0 +1,62 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@layer base {
+    h1, h2 {
+        @apply m-0;
+    }
+    button {
+        @apply font-[inherit] text-2xl text-black leading-none bg-pink/75 border-dashed border-transparent border-1.5 rounded-md py-0.5 px-[5px] mt-2.5 transition duration-200 ease-out;
+    }
+    button:hover, button.selected {
+        @apply border-magenta;
+    }
+    .game-container {
+        @apply border-dashed border-1.5 border-magenta bg-pink/[.67];
+    }
+    a {
+        @apply text-magenta no-underline;
+    }
+    a:hover {
+        @apply underline;
+    }
+}
+
+html, body {
+    height: 100%;
+}
+body {
+    margin: 0;
+}
+
+.fade-in {
+    transition: opacity 1500ms;
+}
+.keypad {
+    display: none;
+    button {
+        color: black;
+        border-radius: 0;
+        border-top: 8px solid lighten(#eb00ff, 10);
+        border-right: 8px solid #eb00ff;
+        border-bottom: 8px solid #eb00ff;
+        border-left: 8px solid lighten(#eb00ff, 15);
+        line-height: 2rem;
+        font-size: 30px;
+        &:active {
+            border-bottom: 6px solid #eb00ff;
+            text-shadow: 0 0 10px #eb00ff, 0 0 10px #eb00ff, 0 0 20px #eb00ff;
+            transform: translate(0, 2px);
+        }
+    }
+}
+.touchscreen {
+    .keypad {
+        display: flex;
+    }
+    .hidden-touch {
+        display: none;
+    }
+}
+
