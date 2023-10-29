@@ -271,7 +271,6 @@ function displayHighScores(highScores) {
 }
 
 function setHighScores(score) {
-    console.log('high scores', highScores)
     if(score > 0 && highScores.indexOf(score) < 0) {
         highScores.push(score)
         highScores.sort((a, b) => b - a)

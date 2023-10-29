@@ -5,7 +5,6 @@ const isMobileDevice = () => {
    (window.innerWidth < 640) || // Screen resolution method
    (('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0));  // Touch events method
 
-  console.log('mobile', isMobile)
   return isMobile
 }
 
