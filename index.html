@@ -1,87 +1,124 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="font-VT323">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
     <title>BlairSnake</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
-    <link rel="shortcut icon" href="css/images/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="css/images/favicon.ico" type="image/x-icon">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="shortcut icon" href="build/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="build/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="build/css/style.css">
 </head>
 
-<body>
-<div class="wrapper">
-<h1>BlairSnake</h1>
-
-<!--start screen-->
-<section id="start-screen">
-  <div id="start-container" class="game-container">
-        
-        <div id="load-image">
-           <h2>Welcome to BlairSnake!<br>This is not your ordinary game of snake.</h2>
-            <img src="css/images/8bitsnake.gif" alt="8-bit snake" id = "snake-img">
-            
-            <h2 class="speed">Choose your speed...</h2>
-            <div class="speed-buttons">
-                <button type="button" class="fast">fast</button>
-                <button type="button" class="faster">faster</button>
-                <button type="button" class="fastest italic">fastest!</button>
+<body class="bg-[color:#73e0ff] text-center font-VT323 flex flex-col before:content-[''] before:block before:bg-sky before:bg-[size:auto_100%] before:fixed before:left-0 before:top-0 before:w-full before:h-full before:-z-10">
+    <div class="wrapper flex-grow flex-shrink-0">
+        <div class="grid grid-cols-2 sm:block">
+            <h1 class="sm:mt-5 mb-0 text-4xl sm:text-5xl col-span-1">BlairSnake</h1>
+            <h2 class="sm:hidden score-wrapper-mobile col-span-1 leading-10">Score: <span class="score">0</span></h2>
+        </div>
+        <div class="flex flex-row flex-wrap max-sm:justify-center mt-2 sm:mt-5">
+            <section id="high-scores" class="flex-1 flex flex-col max-sm:hidden max-sm:order-3 items-center">
+                <div class="px-8 py-5 text-left">
+                    <h2>Your High Scores</h2>
+                    <ol class="leaderboard">
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ol>
+                </div>
+            </section>
+            <div id="game-container" class="game-container sm:mx-auto">
+                <!--start screen-->
+                <section id="start-screen" class="py-5">
+                    <h2>Welcome to BlairSnake!<br>This is not your ordinary game of snake.</h2>
+                    <img src="build/images/8bitsnake.gif" alt="8-bit snake" class="block mx-auto my-2">
+                    <h2 class="speed inline-block">Choose your speed...</h2>
+                    <div class="speed-buttons">
+                        <button type="button" class="w-[100px]" data-fps="8">fast</button>
+                        <button type="button" class="w-[100px]" data-fps="13">faster</button>
+                        <button type="button" class="w-[100px] italic" data-fps="18">fastest!</button>
+                    </div>
+                </section>
+                <!-- end start screen -->
+                <!--game screen-->
+                <section id="game-screen" class="relative hidden animate-fade-in h-full">
+                    <div id="pause-screen" class="absolute top-0 left-0 right-0 bottom-0 bg-pink/[.67] z-10 flex items-center justify-center hidden">
+                        <h2>-- Paused --</h2>
+                    </div>
+                    <canvas id="myCanvas" class="block grow"></canvas>
+                </section>
+                <!-- end game screen -->
+                <!--game over screen-->
+                <section id="game-over-screen" class="py-5 mx-auto hidden animate-fade-in">
+                    <h1 class="mt-0 text-5xl">You died.</h1>
+                    <h2>You played ya'self.</h2>
+                    <img src="build/images/dead_snake.gif" id="dead-snake" class="block mx-auto w-[100px] mt-[10px]" alt="dead snake">
+                    <h2 class="speed inline-block">choose your speed...</h2>
+                    <div class="speed-buttons block">
+                        <button type="button" data-fps="8" class="w-[100px] mb-[5px]">fast</button>
+                        <button type="button" data-fps="13" class="w-[100px] mb-[5px]">faster</button>
+                        <button type="button" data-fps="18" class ="w-[100px] italic mb-[5px]">fastest!</button>
+                    </div>
+                </section>
+                <!-- end game over screen -->
             </div>
+            <div class="flex-1 max-sm:hidden"></div>
+
+            <!-- keypad for mobile/touch devices -->
+            <section class="keypad justify-center w-full p-4 pt-1">
+                <div class="basis-[480px]">
+                    <div class="grid grid-cols-6 grid-rows-2 gap-1 mb-4">
+                        <button id="up" class="mt-0 col-span-2 col-start-3" data-key="up">&#8673;</button> <!-- up arrow -->
+                        <button id="left" class="mt-0 col-span-2 row-start-2" data-key="left">&#8672;</button> <!-- left arrow -->
+                        <button id="down" class="mt-0 col-span-2 row-start-2" data-key="down">&#8675;</button> <!-- down arrow -->
+                        <button id="right" class="mt-0 col-span-2 row-start-2" data-key="right">&#8674;</button> <!-- right arrow -->
+                    </div>
+                    <div class="grid grid-cols-6 gap-1">
+                        <button id="start" class="mt-0 col-span-3" data-key="start">start</button>
+                        <button id="pause" class="mt-0 col-span-3" data-key="pause">pause</button>
+                    </div>
+                </div>
+            </section>
         </div>
 
-        <div class="directions">
-            <h2><span class="space-bar">-  Push Space Bar to start -</span><br>use arrow keys to navigate<br>eat the food<br>don"t hit the walls or your tail!</h2>
-        </div>
-    </div>
-</section>
+        <section class="bottom-menu p-4 pt-2 sm:p-10">
+            <h2 class="score-wrapper hidden">Score: <span class="score">0</span></h2>
+            <h2 class="space-bar mb-0 hidden-touch inline-block">-  Push Space Bar to start -</h2>
+            <h2 class="mb-0">use arrow keys to navigate</h2>
+            <h2 class="hidden-touch mb-0">use "P" key to pause/unpause</h2>
+            <h2 class="mb-0">eat the food</h2>
+            <h2 class="mb-0">don't hit the walls or your tail!</h2>
+        </section>
 
-<!--game screen-->
-<section id="game-screen">
-    <canvas id="myCanvas" class="game-container"></canvas>
-    <h2 class="score"></h2>
-    <div class= "directions">
-            <h2>use arrow keys to navigate<br>eat the food<br>don"t hit the walls or your tail!</h2>
-    </div>
-</section>
-
-<!--game over screen-->
-<section id="game-over">
-  <div id="game-over-container" class="game-container">
-        <h1>You died.</h1>
-        <h2>You played ya"self.</h2>
-        <img src="css/images/dead_snake.gif" id="dead-snake" alt="dead snake">
-        <h2 class="speed emphasize">choose your speed...</h2>
-            <div class="speed-buttons">
-                <button type="button" class="fast">fast</button>
-                <button type="button" class="faster">faster</button>
-                <button type="button" class ="fastest italic">fastest!</button>
+        <section class="high-scores-mobile sm:hidden">
+            <div class="px-4 py-2">
+                <h2>Your High Scores</h2>
+                <ol class="leaderboard inline-block p-0 mt-2 text-2xl leading-none">
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ol>
             </div>
-            
-        <h2>- push space to play again! -</h2>
-        <h2 class="score"></h2>
+        </section>
     </div>
-</section>
 
-<div class="push"></div>
-<div class="push"></div>
-<div class="push"></div>
-</div>
+    <!--footer-->
+    <div class="footer mx-auto mb-4 flex-shrink-0">
+        built by <a href="https://github.com/blairdow/blair-snake">Blair Dowis</a>
+    </div>
 
-<!--footer-->
-<div class="footer">
-    built by <a href="https://github.com/blairdow/blair-snake">Blair Dowis</a>
-    <a class="twitter" href="https://www.twitter.com/blairdow"><i class="icon ion-social-twitter"></i></a>
-</div>
    
 
-<!--audio files  -->
-    <audio src="sounds/start.wav" id="start"></audio>
-    <audio src="sounds/food.wav" id="food"></audio> 
-    <audio src="sounds/death.wav" id="death"></audio>  
+    <!--audio files  -->
+    <audio src="build/sounds/start.wav" id="start-sound"></audio>
+    <audio src="build/sounds/food.wav" id="food-sound"></audio> 
+    <audio src="build/sounds/death.wav" id="death-sound"></audio>  
     
-<!--javascript -->
-    <script src= "js/main.js"></script>
+    <script src= "build/js/style.js"></script>
+    <script src= "build/js/main.js"></script>
 </body>
 </html>
