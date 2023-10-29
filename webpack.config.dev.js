@@ -6,9 +6,6 @@ const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
   mode: 'development',
-  externals: {
-    jquery: 'jQuery',
-  },
   entry: {
     style: "./src/scss/main.scss",
     main:  [ "./src/js/main.js" ],

@@ -45,9 +45,9 @@ body {
         line-height: 2rem;
         font-size: 30px;
         &:active {
-            border-bottom: 7px solid #eb00ff;
+            border-bottom: 6px solid #eb00ff;
             text-shadow: 0 0 10px #eb00ff, 0 0 10px #eb00ff, 0 0 20px #eb00ff;
-            transform: translate(0, 1px);
+            transform: translate(0, 2px);
         }
     }
 }
