@@ -5,9 +5,9 @@
     <title>BlairSnake</title>
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
-    <link rel="shortcut icon" href="/build/images/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="/build/images/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="/build/css/style.css">
+    <link rel="shortcut icon" href="build/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="build/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="build/css/style.css">
 </head>
 
 <body class="bg-[color:#73e0ff] text-center font-VT323 flex flex-col before:content-[''] before:block before:bg-sky before:bg-[size:auto_100%] before:fixed before:left-0 before:top-0 before:w-full before:h-full before:-z-10">
@@ -29,7 +29,7 @@
                     </ol>
                 </div>
             </section>
-            <div id="game-container" class="game-container sm:mx-auto">
+            <div id="game-container" class="game-container sm:mx-auto [touch-action:pan-x_pan-y]">
                 <!--start screen-->
                 <section id="start-screen" class="py-5">
                     <h2>Welcome to BlairSnake!<br>This is not your ordinary game of snake.</h2>
@@ -67,7 +67,7 @@
             <div class="flex-1 max-sm:hidden"></div>
 
             <!-- keypad for mobile/touch devices -->
-            <section class="keypad justify-center w-full p-4 pt-1">
+            <section class="keypad justify-center w-full p-4 pt-1 [touch-action:pan-x_pan-y]">
                 <div class="basis-[480px]">
                     <div class="grid grid-cols-6 grid-rows-2 gap-1 mb-4">
                         <button id="up" class="mt-0 col-span-2 col-start-3" data-key="up">&#8673;</button> <!-- up arrow -->
@@ -114,11 +114,11 @@
    
 
     <!--audio files  -->
-    <audio src="/build/sounds/start.wav" id="start-sound"></audio>
-    <audio src="/build/sounds/food.wav" id="food-sound"></audio> 
-    <audio src="/build/sounds/death.wav" id="death-sound"></audio>  
+    <audio src="build/sounds/start.wav" id="start-sound"></audio>
+    <audio src="build/sounds/food.wav" id="food-sound"></audio> 
+    <audio src="build/sounds/death.wav" id="death-sound"></audio>  
     
-    <script src= "/build/js/style.js"></script>
-    <script src= "/build/js/main.js"></script>
+    <script src= "build/js/style.js"></script>
+    <script src= "build/js/main.js"></script>
 </body>
 </html>
