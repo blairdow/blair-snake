@@ -104,6 +104,7 @@ function eventListeners() {
         if(gameTracker.gameActive && !gameTracker.paused) {
             if(e.code === "ArrowUp" && !gameTracker.keyPress.down) {
                 //up
+                e.preventDefault(); //keeps browser window from scrolling
                 gameTracker.keyPress.up = true
                 gameTracker.directionX = 0
                 gameTracker.directionY = -basePixelUnit
@@ -114,6 +115,7 @@ function eventListeners() {
             }
             if(e.code === "ArrowDown" && !gameTracker.keyPress.up) {
                 //down
+                e.preventDefault();
                 gameTracker.keyPress.down = true
                 gameTracker.directionX = 0
                 gameTracker.directionY = basePixelUnit
@@ -124,6 +126,7 @@ function eventListeners() {
             }
             if(e.code === "ArrowLeft" && !gameTracker.keyPress.right) {
                 //left
+                e.preventDefault();
                 gameTracker.keyPress.left = true
                 gameTracker.directionX = -basePixelUnit
                 gameTracker.directionY = 0
@@ -134,6 +137,7 @@ function eventListeners() {
             }
             if(e.code === "ArrowRight" && !gameTracker.keyPress.left) {
                 //right
+                e.preventDefault();
                 gameTracker.keyPress.right = true
                 gameTracker.directionX = basePixelUnit
                 gameTracker.directionY = 0
