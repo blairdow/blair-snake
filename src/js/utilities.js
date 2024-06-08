@@ -28,7 +28,6 @@ const playSound = (soundID) => {
 }
 
 const displayScore = (score) => {
-  //display current game score
   let scoreElement = document.querySelectorAll('.score')
   scoreElement.forEach((el) => {
     el.textContent = score
